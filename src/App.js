@@ -8,8 +8,10 @@ class App extends Component {
         this.state = {
             wsUri: "ws://localhost:7777/",
             output: null,
-            ws: null
+            ws: null,
+            fullscreen: false
         };
+        this.toggleFullscreen = this.toggleFullscreen.bind(this);
     }
 
     componentDidMount() {
@@ -74,12 +76,58 @@ class App extends Component {
         this.state.output.appendChild(pre);
     }
 
+    toggleFullscreen() {
+        if ((document.fullScreenElement && document.fullScreenElement !== null) ||
+            (!document.mozFullScreen && !document.webkitIsFullScreen)) {
+            if (document.documentElement.requestFullScreen) {
+                document.documentElement.requestFullScreen();
+                this.setState({
+                    fullscreen: true
+                });
+            } else if (document.documentElement.mozRequestFullScreen) {
+                document.documentElement.mozRequestFullScreen();
+                this.setState({
+                    fullscreen: true
+                });
+            } else if (document.documentElement.webkitRequestFullScreen) {
+                document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+                this.setState({
+                    fullscreen: true
+                });
+            }
+        } else {
+            if (document.cancelFullScreen) {
+                document.cancelFullScreen();
+                this.setState({
+                    fullscreen: false
+                });
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+                this.setState({
+                    fullscreen: false
+                });
+            } else if (document.webkitCancelFullScreen) {
+                document.webkitCancelFullScreen();
+                this.setState({
+                    fullscreen: false
+                });
+            }
+        }
+    }
+
     render() {
+        let fullscreenButton = null;
+        if (this.state.fullscreen) {
+            fullscreenButton = <button onClick={this.toggleFullscreen}>Exit fullscreen</button>;
+        } else {
+            fullscreenButton = <button onClick={this.toggleFullscreen}>Start</button>
+        }
         return (
             <div className="App">
                 <header className="App-header">
                     <img src={logo} className="App-logo" alt="logo" />
                     <h1 className="App-title">Kelkkailija</h1>
+                    {fullscreenButton}
                 </header>
                 <p className="App-intro">
                     To get started, edit <code>src/App.js</code> and save to reload.
