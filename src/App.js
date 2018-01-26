@@ -48,7 +48,7 @@ class App extends Component {
 
     onOpen(evt) {
         this.writeToScreen("CONNECTED");
-        this.doSend("joinGame");
+        this.doSend("{'command': 'joinGame'}");
     }
 
     onClose(evt) {
@@ -77,8 +77,10 @@ class App extends Component {
     }
 
     toggleFullscreen() {
-        if ((document.fullScreenElement && document.fullScreenElement !== null) ||
-            (!document.mozFullScreen && !document.webkitIsFullScreen)) {
+        if (
+            (document.fullScreenElement && document.fullScreenElement !== null) ||
+            (!document.mozFullScreen && !document.webkitIsFullScreen)
+        ) {
             if (document.documentElement.requestFullScreen) {
                 document.documentElement.requestFullScreen();
                 this.setState({
@@ -120,7 +122,7 @@ class App extends Component {
         if (this.state.fullscreen) {
             fullscreenButton = <button onClick={this.toggleFullscreen}>Exit fullscreen</button>;
         } else {
-            fullscreenButton = <button onClick={this.toggleFullscreen}>Start</button>
+            fullscreenButton = <button onClick={this.toggleFullscreen}>Start</button>;
         }
         return (
             <div className="App">
