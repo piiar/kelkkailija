@@ -11,6 +11,7 @@ class App extends Component {
             ws: null,
             fullscreen: false
         };
+        this.startGame = this.startGame.bind(this);
         this.toggleFullscreen = this.toggleFullscreen.bind(this);
     }
 
@@ -117,12 +118,17 @@ class App extends Component {
         }
     }
 
+    startGame() {
+        console.log('start the game');
+        this.toggleFullscreen();
+    }
+
     render() {
         let fullscreenButton = null;
         if (this.state.fullscreen) {
-            fullscreenButton = <div class="start-button" onClick={this.toggleFullscreen}></div>;
+            fullscreenButton = <div class="start-button fullscreen" onClick={this.toggleFullscreen}></div>;
         } else {
-            fullscreenButton = <div class="start-button" onClick={this.toggleFullscreen}></div>;
+            fullscreenButton = <div class="start-button" onClick={this.startGame}></div>;
         }
         return (
             <div className="App">

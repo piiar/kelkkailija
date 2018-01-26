@@ -12,11 +12,11 @@ body, html, #root, #root > div {
 }
 
 .start-button {
-    background: url('ok_idle.png');
+    background: url('assets/ok_idle.png');
 }
 
 .start-button:active {
-    background: url('ok_pressed.png');
+    background: url('assets/ok_pressed.png');
 }
 .start-button,
 .start-button:active {
