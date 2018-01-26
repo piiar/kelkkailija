@@ -120,20 +120,13 @@ class App extends Component {
     render() {
         let fullscreenButton = null;
         if (this.state.fullscreen) {
-            fullscreenButton = <button onClick={this.toggleFullscreen}>Exit fullscreen</button>;
+            fullscreenButton = <div class="start-button" onClick={this.toggleFullscreen}></div>;
         } else {
-            fullscreenButton = <button onClick={this.toggleFullscreen}>Start</button>;
+            fullscreenButton = <div class="start-button" onClick={this.toggleFullscreen}></div>;
         }
         return (
             <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <h1 className="App-title">Kelkkailija</h1>
-                    {fullscreenButton}
-                </header>
-                <p className="App-intro">
-                    To get started, edit <code>src/App.js</code> and save to reload.
-                </p>
+                {fullscreenButton}
                 <div id="output" />
             </div>
         );

@@ -1,32 +1,30 @@
+body, html, #root, #root > div {
+    height: 100%;
+}
 .App {
+    height: 100%;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(#e42f2f, #a01010);
 }
 
-.App-logo {
-    animation: App-logo-spin infinite 20s linear;
-    height: 80px;
+.start-button {
+    background: url('ok_idle.png');
 }
 
-.App-header {
-    background-color: #222;
-    height: 150px;
-    padding: 20px;
-    color: white;
+.start-button:active {
+    background: url('ok_pressed.png');
 }
-
-.App-title {
-    font-size: 1.5em;
-}
-
-.App-intro {
-    font-size: large;
-}
-
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+.start-button,
+.start-button:active {
+    width: 5em;
+    height: 5em;
+    border: none;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
