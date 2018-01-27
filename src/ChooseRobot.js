@@ -8,6 +8,7 @@ class ChooseRobot extends Component {
             session: null,
             price: 0,
             canAfford: true,
+            robotTransmitted: false,
             parts: ["TOP", "LEFT", "RIGHT", "BOTTOM"],
             selectedParts: {
                 TOP: 0,
@@ -76,7 +77,10 @@ class ChooseRobot extends Component {
     }
 
     transmitRobot() {
-        console.log('robot change in chooserobot', this.state.selectedParts);
+        console.log("robot change in chooserobot", this.state.selectedParts);
+        this.setState({
+            robotTransmitted: true
+        });
         this.props.transmitRobot(this.state.selectedParts);
     }
 
@@ -101,12 +105,14 @@ class ChooseRobot extends Component {
                                 {this.state.availableParts.TOP[this.state.selectedParts.TOP].price}$
                             </div>
                         </div>
-                        <button
-                            className="swap-button"
-                            onClick={() => {
-                                this.rotatePart("TOP");
-                            }}
-                        />
+                        {this.state.robotTransmitted ? null : (
+                            <button
+                                className="swap-button"
+                                onClick={() => {
+                                    this.rotatePart("TOP");
+                                }}
+                            />
+                        )}
                     </div>
                     <div className="robot-left flex-row">
                         <div className="part-left">
@@ -120,12 +126,14 @@ class ChooseRobot extends Component {
                                 }$
                             </div>
                         </div>
-                        <button
-                            className="swap-button"
-                            onClick={() => {
-                                this.rotatePart("LEFT");
-                            }}
-                        />
+                        {this.state.robotTransmitted ? null : (
+                            <button
+                                className="swap-button"
+                                onClick={() => {
+                                    this.rotatePart("LEFT");
+                                }}
+                            />
+                        )}
                     </div>
                     <div className="robot-right flex-row">
                         <div className="part-left">
@@ -142,12 +150,14 @@ class ChooseRobot extends Component {
                                 }$
                             </div>
                         </div>
-                        <button
-                            className="swap-button"
-                            onClick={() => {
-                                this.rotatePart("RIGHT");
-                            }}
-                        />
+                        {this.state.robotTransmitted ? null : (
+                            <button
+                                className="swap-button"
+                                onClick={() => {
+                                    this.rotatePart("RIGHT");
+                                }}
+                            />
+                        )}
                     </div>
                     <div className="robot-bottom flex-row">
                         <div className="part-left">
@@ -166,19 +176,25 @@ class ChooseRobot extends Component {
                                 }$
                             </div>
                         </div>
-                        <button
-                            className="swap-button"
-                            onClick={() => {
-                                this.rotatePart("BOTTOM");
-                            }}
-                        />
+                        {this.state.robotTransmitted ? null : (
+                            <button
+                                className="swap-button"
+                                onClick={() => {
+                                    this.rotatePart("BOTTOM");
+                                }}
+                            />
+                        )}
                     </div>
                 </div>
-                <button
-                    className="button-container start-button"
-                    disabled={!this.state.canAfford}
-                    onClick={this.transmitRobot}
-                />
+                {this.state.robotTransmitted ? (
+                    <span>Robot transmitted! Waiting for launch...</span>
+                ) : (
+                    <button
+                        className="button-container start-button"
+                        disabled={!this.state.canAfford}
+                        onClick={this.transmitRobot}
+                    />
+                )}
             </div>
         );
     }
