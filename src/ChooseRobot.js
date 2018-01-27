@@ -85,6 +85,14 @@ class ChooseRobot extends Component {
     }
 
     render() {
+        let loadingDots = (
+            <span>
+                {" "}
+                <span>.</span>
+                <span>.</span>
+                <span>.</span>
+            </span>
+        );
         return (
             <div className="flex1 flex-align-center flex-justify-stretch flex-col">
                 <TopBar name={this.props.name} points={this.props.points} />
@@ -187,7 +195,7 @@ class ChooseRobot extends Component {
                     </div>
                 </div>
                 {this.state.robotTransmitted ? (
-                    <span>Robot transmitted! Waiting for launch...</span>
+                    <span className="button-container">Robot transmitted! Waiting for launch <span className="loading">{loadingDots}</span></span>
                 ) : (
                     <button
                         className="button-container start-button"
