@@ -20,7 +20,13 @@ class App extends Component {
                 CHOOSE_ROBOT: 1,
                 INGAME: 2,
                 HIGHSCORE: 3
-            }
+            },
+            selectedParts: {
+                TOP: 0,
+                LEFT: 0,
+                RIGHT: 0,
+                BOTTOM: 0
+            },
         };
         this.startGame = this.startGame.bind(this);
         this.quit = this.quit.bind(this);
@@ -171,11 +177,15 @@ class App extends Component {
     }
 
     handletransmitRobot(selectedParts) {
+        this.setState({
+            selectedParts: selectedParts
+        });
         let message = {
             command: 'transmitRobot',
             robot: selectedParts
         }
         if (this.state.loaded) {
+            console.log('sending', message);
             this.state.ws.send(JSON.stringify(message));
         } else {
             console.log('not loaded yet');
@@ -241,7 +251,8 @@ class App extends Component {
             return (
                 <div className="App flex-col">
                     <Actions
-                        aiMode={this.state.aiMode}
+                        selectedParts={this.state.selectedParts}
+                        transmitRobot={this.handletransmitRobot}
                         name={this.state.name}
                         points={this.state.points}
                     />

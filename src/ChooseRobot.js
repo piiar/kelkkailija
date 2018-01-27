@@ -77,7 +77,6 @@ class ChooseRobot extends Component {
     }
 
     transmitRobot() {
-        console.log("robot change in chooserobot", this.state.selectedParts);
         this.setState({
             robotTransmitted: true
         });
@@ -96,15 +95,15 @@ class ChooseRobot extends Component {
         return (
             <div className="flex1 flex-align-center flex-justify-stretch flex-col">
                 <TopBar name={this.props.name} points={this.props.points} />
-                <div className="flex1 flex-col">
-                    <div className="choose-robot-title">
+                <div className="flex-align-center flex1 flex-col">
+                    <div className="choose-robot-title margin-bottom10">
                         <span>Assemble your robot</span>
                     </div>
-                    <div className="choose-robot-title">
+                    <div className="choose-robot-title margin-bottom10">
                         <span>Budget: {this.props.budget - this.state.price} $</span>
                         {this.state.canAfford ? null : <span>!!!TOO EXPENSIVE!!!</span>}
                     </div>
-                    <div className="robot-top flex-row">
+                    <div className="robot-top margin-bottom10 flex-row">
                         <div className="part-left">
                             <div className="selected-part">
                                 {this.state.availableParts.TOP[this.state.selectedParts.TOP].name}
@@ -122,7 +121,7 @@ class ChooseRobot extends Component {
                             />
                         )}
                     </div>
-                    <div className="robot-left flex-row">
+                    <div className="robot-left margin-bottom10 flex-row">
                         <div className="part-left">
                             <div className="selected-part">
                                 {this.state.availableParts.LEFT[this.state.selectedParts.LEFT].name}
@@ -143,7 +142,7 @@ class ChooseRobot extends Component {
                             />
                         )}
                     </div>
-                    <div className="robot-right flex-row">
+                    <div className="robot-right margin-bottom10 flex-row">
                         <div className="part-left">
                             <div className="selected-part">
                                 {
@@ -167,7 +166,7 @@ class ChooseRobot extends Component {
                             />
                         )}
                     </div>
-                    <div className="robot-bottom flex-row">
+                    <div className="robot-bottom margin-bottom10 flex-row">
                         <div className="part-left">
                             <div className="selected-part">
                                 {

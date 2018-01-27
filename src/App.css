@@ -131,10 +131,6 @@ body, html, #root, #root > div {
     padding-right: 10px;
 }
 
-.choose-robot-title,
-.robot-top,
-.robot-bottom,
-.robot-left,
-.robot-right {
+.margin-bottom10 {
     margin-bottom: 10px;
 }
