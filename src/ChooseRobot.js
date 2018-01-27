@@ -188,10 +188,10 @@ class ChooseRobot extends Component {
                     </div>
                 </div>
                 {this.state.robotTransmitted ? (
-                    <span className="button-container">
-                        Robot transmitted! Waiting for launch{" "}
-                        <span className="loading">{loadingDots}</span>
-                    </span>
+                    <div className="output-container flex1 flex-col flex-align-center flex-justify-center">
+                        <div id="wsoutput">Robot transmitted! Waiting for launch</div>
+                        <span className="loading big">{loadingDots}</span>
+                    </div>
                 ) : (
                     <button
                         className="button-container start-button"
