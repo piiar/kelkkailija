@@ -52,20 +52,20 @@ class Actions extends Component {
                 <div className="flex-align-center flex1 flex-col">
                     <div className="margin-bottom10">You are in game!</div>
                     <div className="margin-bottom10">You can swap your AI mode:</div>
-                    <div className="robot-top flex-row">
+                    <div className="robot-top flex-row flex-align-center">
                         <div className="part-left">
                             <div className="selected-part">
                                 {this.state.availableParts.TOP[this.state.selectedParts.TOP].name}
                             </div>
                         </div>
+                        <button
+                            className="swap-button"
+                            onClick={() => {
+                                this.rotatePart("TOP");
+                            }}
+                        />
                     </div>
                 </div>
-                <button
-                    className="button-container swap-button"
-                    onClick={() => {
-                        this.rotatePart("TOP");
-                    }}
-                />
             </div>
         );
     }

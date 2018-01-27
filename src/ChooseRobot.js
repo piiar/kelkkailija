@@ -97,7 +97,7 @@ class ChooseRobot extends Component {
                         <span>Budget: {this.props.budget - this.state.price} $</span>
                         {this.state.canAfford ? null : <span>!!!TOO EXPENSIVE!!!</span>}
                     </div>
-                    <div className="robot-top margin-bottom10 flex-row">
+                    <div className="robot-top margin-bottom10 flex-row flex-align-center">
                         <div className="part-left">
                             <div className="selected-part">
                                 {this.state.availableParts.TOP[this.state.selectedParts.TOP].name}
@@ -115,7 +115,7 @@ class ChooseRobot extends Component {
                             />
                         )}
                     </div>
-                    <div className="robot-left margin-bottom10 flex-row">
+                    <div className="robot-left margin-bottom10 flex-row flex-align-center">
                         <div className="part-left">
                             <div className="selected-part">
                                 {this.state.availableParts.LEFT[this.state.selectedParts.LEFT].name}
@@ -136,7 +136,7 @@ class ChooseRobot extends Component {
                             />
                         )}
                     </div>
-                    <div className="robot-right margin-bottom10 flex-row">
+                    <div className="robot-right margin-bottom10 flex-row flex-align-center">
                         <div className="part-left">
                             <div className="selected-part">
                                 {
@@ -160,7 +160,7 @@ class ChooseRobot extends Component {
                             />
                         )}
                     </div>
-                    <div className="robot-bottom margin-bottom10 flex-row">
+                    <div className="robot-bottom margin-bottom10 flex-row flex-align-center">
                         <div className="part-left">
                             <div className="selected-part">
                                 {
@@ -186,11 +186,11 @@ class ChooseRobot extends Component {
                             />
                         )}
                     </div>
+                    {this.state.robotTransmitted ? (<span className="loading big">{loadingDots}</span>) : null}
                 </div>
                 {this.state.robotTransmitted ? (
                     <span className="button-container">
-                        Robot transmitted! Waiting for launch{" "}
-                        <span className="loading">{loadingDots}</span>
+                        Robot transmitted! Waiting for launch
                     </span>
                 ) : (
                     <button
