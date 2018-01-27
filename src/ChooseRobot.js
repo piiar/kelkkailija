@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import TopBar from "./TopBar";
 
 class ChooseRobot extends Component {
     constructor(props) {
@@ -10,8 +11,11 @@ class ChooseRobot extends Component {
 
     render() {
         return (
-            <div className="App">
-                ChooseRobot
+            <div className="flex1 flex-align-center flex-justify-center flex-col">
+                <TopBar name={this.props.name} points={this.props.points} />
+                <div>
+                    ChooseRobot
+                </div>
             </div>
         );
     }

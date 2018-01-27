@@ -6,7 +6,7 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            wsUri: "ws://91.159.111.132:7777/",
+            wsUri: "ws://192.168.0.105:7777/",
             // wsUri: "ws://localhost:7777/",
             wsoutput: null,
             ws: null,
@@ -69,6 +69,13 @@ class App extends Component {
         this.setState({
             loaded: true
         });
+        if (evt.data.name) {
+            this.setState({
+                name: evt.data.name,
+                points: evt.data.points,
+                sessionId: evt.data.sessionId
+            });
+        }
         this.writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data + "</span>");
         this.state.ws.close();
     }
@@ -78,6 +85,13 @@ class App extends Component {
             loaded: true
         });
         this.writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
+
+        // NOTE: This is for debugging
+        this.setState({
+            name: 'HermanniHermeshön',
+            points: 100,
+            sessionId: 12312
+        });
     }
 
     doSend(message) {
@@ -148,18 +162,18 @@ class App extends Component {
                 output = <div>Loading...</div>
             }
             return (
-                <div className="App zero">
+                <div className="App zero flex-col flex-align-center flex-justify-stretch">
                     <div className="welcome-title">Welcome</div>
-                    <div className="output-container">
+                    <div className="output-container flex1 flex-align-center flex-justify-center">
                         <div id="wsoutput">{output}</div>
                     </div>
-                    <div className="start-button" onClick={this.startGame}></div>
+                    <button className="start-button" disabled={!this.state.loaded} onClick={this.startGame}></button>
                 </div>
             );
         } else if (this.state.step === 1) {
             return (
                 <div className="App">
-                    <ChooseRobot />
+                    <ChooseRobot name={this.state.name} points={this.state.points}/>
                 </div>
             );
         }
