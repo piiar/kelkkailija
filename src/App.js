@@ -15,6 +15,7 @@ class App extends Component {
             step: 0,
             loaded: false,
             budget: 1000,
+            robotselected: false,
             gameStates: {
                 WELCOME: 0,
                 CHOOSE_ROBOT: 1,
@@ -28,7 +29,7 @@ class App extends Component {
                 BOTTOM: 0
             },
         };
-        this.startGame = this.startGame.bind(this);
+        this.gotoChooseRobot = this.gotoChooseRobot.bind(this);
         this.quit = this.quit.bind(this);
         this.toggleFullscreen = this.toggleFullscreen.bind(this);
         this.handletransmitRobot = this.handletransmitRobot.bind(this);
@@ -94,14 +95,27 @@ class App extends Component {
                 points: dataJson.points,
                 token: dataJson.token
             });
+            this.writeToScreen(
+                "<div>Your assigned serial number is</div>" +
+                    '<div style="font-size: 1.5em">' +
+                    this.state.name +
+                    "</div>"
+            );
         }
 
-        this.writeToScreen(
-            "<div>Your assigned serial number is</div>" +
-                '<div style="font-size: 1.5em">' +
-                this.state.name +
-                "</div>"
-        );
+        if (dataJson.command && dataJson.command === 'startGame') {
+            if (this.state.robotselected) {
+                this.setState({
+                    step: this.state.gameStates.INGAME,
+                    gameReady: true
+                });
+            } else {
+                this.setState({
+                    gameReady: true
+                });
+            }
+        }
+
     }
 
     onError(evt) {
@@ -120,7 +134,6 @@ class App extends Component {
         var pre = document.createElement("p");
         pre.style.wordWrap = "break-word";
         pre.innerHTML = message;
-        // this.state.wsoutput.appendChild(pre);
         this.state.wsoutput.innerHTML = pre.outerHTML;
     }
 
@@ -165,10 +178,10 @@ class App extends Component {
         }
     }
 
-    startGame() {
+    gotoChooseRobot() {
         this.toggleFullscreen();
         this.setState({
-            step: 1
+            step: this.state.gameStates.CHOOSE_ROBOT
         });
     }
 
@@ -177,9 +190,18 @@ class App extends Component {
     }
 
     handletransmitRobot(selectedParts) {
-        this.setState({
-            selectedParts: selectedParts
-        });
+        if (this.state.gameReady) {
+            this.setState({
+                step: this.state.gameStates.INGAME,
+                selectedParts: selectedParts,
+                robotselected: true
+            });
+        } else {
+            this.setState({
+                selectedParts: selectedParts,
+                robotselected: true
+            });
+        }
         let message = {
             command: 'transmitRobot',
             robot: selectedParts
@@ -205,7 +227,7 @@ class App extends Component {
                     <button
                         className="start-button"
                         disabled={!this.state.loaded}
-                        onClick={this.startGame}
+                        onClick={this.gotoChooseRobot}
                     />
                 );
             } else {
