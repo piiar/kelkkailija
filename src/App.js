@@ -92,6 +92,13 @@ class App extends Component {
 
         let dataJson = JSON.parse(evt.data.replace(/'/g, '"'));
 
+        if (dataJson.money) {
+            let newBudget = this.state.budget + dataJson.money;
+            this.setState({
+                budget: newBudget;
+            });
+        }
+
         if (dataJson.name) {
             this.setState({
                 name: dataJson.name,
