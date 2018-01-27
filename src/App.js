@@ -17,6 +17,7 @@ class App extends Component {
             budget: 1000,
             robotInLobby: false,
             robotselected: false,
+            gameStarted: false,
             gameStates: {
                 WELCOME: 0,
                 CHOOSE_ROBOT: 1,
@@ -95,7 +96,7 @@ class App extends Component {
             this.setState({
                 name: dataJson.name,
                 points: dataJson.points,
-                gameStarted: dataJson.gameStarted || false,
+                gameStarted: dataJson.gameStarted == "true",
                 token: dataJson.token
             });
             this.writeToScreen(
@@ -211,6 +212,7 @@ class App extends Component {
                 robotselected: true
             });
         }
+        console.log(this.state.step);
     }
 
     transmitRobot(selectedParts) {
