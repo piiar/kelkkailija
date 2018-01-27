@@ -12,7 +12,13 @@ class App extends Component {
             ws: null,
             fullscreen: false,
             step: 0,
-            loaded: false
+            loaded: false,
+            gameStates: {
+                WELCOME: 0,
+                CHOOSE_ROBOT: 1,
+                INGAME: 2,
+                HIGHSCORE: 3
+            }
         };
         this.startGame = this.startGame.bind(this);
         this.quit = this.quit.bind(this);
@@ -88,7 +94,7 @@ class App extends Component {
 
         // NOTE: This is for debugging
         this.setState({
-            name: 'HermanniHermeshön',
+            name: "HermanniHermeshön",
             points: 100,
             sessionId: 12312
         });
@@ -160,7 +166,7 @@ class App extends Component {
     }
 
     render() {
-        if (this.state.step === 0) {
+        if (this.state.step === this.state.gameStates.WELCOME) {
             let output;
             if (!this.state.loaded) {
                 output = <div>Loading...</div>;
@@ -171,18 +177,24 @@ class App extends Component {
                     <div className="output-container flex1 flex-align-center flex-justify-center">
                         <div id="wsoutput">{output}</div>
                     </div>
-                    <button className="start-button" disabled={!this.state.loaded} onClick={this.startGame}></button>
+                    <button
+                        className="start-button"
+                        disabled={!this.state.loaded}
+                        onClick={this.startGame}
+                    />
                     {/* <button type="button" onClick={this.quit}>
                         sulje websocket
                     </button> */}
                 </div>
             );
-        } else if (this.state.step === 1) {
+        } else if (this.state.step === this.state.gameStates.CHOOSE_ROBOT) {
             return (
                 <div className="App">
-                    <ChooseRobot name={this.state.name} points={this.state.points}/>
+                    <ChooseRobot name={this.state.name} points={this.state.points} />
                 </div>
             );
+        } else if (this.state.step === this.state.gameStates.INGAME) {
+        } else if (this.state.step === this.state.gameStates.HIGHSCORE) {
         }
     }
 }
