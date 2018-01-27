@@ -27,7 +27,7 @@ class App extends Component {
                 LEFT: 0,
                 RIGHT: 0,
                 BOTTOM: 0
-            },
+            }
         };
         this.gotoChooseRobot = this.gotoChooseRobot.bind(this);
         this.quit = this.quit.bind(this);
@@ -93,6 +93,7 @@ class App extends Component {
             this.setState({
                 name: dataJson.name,
                 points: dataJson.points,
+                gameStarted: dataJson.gameStarted || false,
                 token: dataJson.token
             });
             this.writeToScreen(
@@ -103,19 +104,18 @@ class App extends Component {
             );
         }
 
-        if (dataJson.command && dataJson.command === 'startGame') {
+        if (dataJson.command && dataJson.command === "startGame") {
             if (this.state.robotselected) {
                 this.setState({
                     step: this.state.gameStates.INGAME,
-                    gameReady: true
+                    gameStarted: true
                 });
             } else {
                 this.setState({
-                    gameReady: true
+                    gameStarted: true
                 });
             }
         }
-
     }
 
     onError(evt) {
@@ -190,7 +190,7 @@ class App extends Component {
     }
 
     handletransmitRobot(selectedParts) {
-        if (this.state.gameReady) {
+        if (this.state.gameStarted) {
             this.setState({
                 step: this.state.gameStates.INGAME,
                 selectedParts: selectedParts,
@@ -203,14 +203,14 @@ class App extends Component {
             });
         }
         let message = {
-            command: 'transmitRobot',
+            command: "transmitRobot",
             robot: selectedParts
-        }
+        };
         if (this.state.loaded) {
-            console.log('sending', message);
+            console.log("sending", message);
             this.state.ws.send(JSON.stringify(message));
         } else {
-            console.log('not loaded yet');
+            console.log("not loaded yet");
         }
     }
 
