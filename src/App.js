@@ -14,7 +14,7 @@ class App extends Component {
             fullscreen: false,
             step: 0,
             loaded: false,
-            budget: 6000,
+            budget: 1000,
             gameStates: {
                 WELCOME: 0,
                 CHOOSE_ROBOT: 1,
@@ -25,6 +25,7 @@ class App extends Component {
         this.startGame = this.startGame.bind(this);
         this.quit = this.quit.bind(this);
         this.toggleFullscreen = this.toggleFullscreen.bind(this);
+        this.handleRobotChange = this.handleRobotChange.bind(this);
     }
 
     componentDidMount() {
@@ -165,6 +166,18 @@ class App extends Component {
         this.state.ws.close();
     }
 
+    handleRobotChange(selectedParts) {
+        let message = {
+            command: 'robotChange',
+            robot: selectedParts
+        }
+        if (this.state.loaded) {
+            this.state.ws.send(JSON.stringify(message));
+        } else {
+            console.log('not loaded yet');
+        }
+    }
+
     render() {
         if (this.state.step === this.state.gameStates.WELCOME) {
             let output, transmitText, transmitExtra, startButton, loadingDots;
@@ -204,6 +217,7 @@ class App extends Component {
             return (
                 <div className="App flex-col">
                     <ChooseRobot
+                        robotChange={this.handleRobotChange}
                         name={this.state.name}
                         points={this.state.points}
                         budget={this.state.budget}
