@@ -70,86 +70,86 @@ class ChooseRobot extends Component {
 
     render() {
         return (
-            <div className="flex1 flex-align-center flex-justify-center flex-col">
+            <div className="flex1 flex-align-center flex-justify-stretch flex-col">
                 <TopBar name={this.props.name} points={this.props.points} />
-                <div>
-                    <div>
-                        <span className="choose-robot-title">Assemble your robot</span>
+                <div className="flex1 flex-col">
+                    <div className="choose-robot-title">
+                        <span>Assemble your robot</span>
                     </div>
-                    <div>
-                        <span className="choose-robot-title">
+                    <div className="choose-robot-title">
+                        <span>
                             Budget: {this.props.budget - this.state.price} $
                         </span>
                     </div>
-                    <div className="robot-top">
-                        <div className="selected-part">
-                            {this.state.availableParts.TOP[this.state.selectedParts.TOP].name}
+                    <div className="robot-top flex-row">
+                        <div className="part-left">
+                            <div className="selected-part">
+                                {this.state.availableParts.TOP[this.state.selectedParts.TOP].name}
+                            </div>
+                            <div className="selected-part-price">
+                                {this.state.availableParts.TOP[this.state.selectedParts.TOP].price}$
+                            </div>
                         </div>
-                        <div className="selected-part-price">
-                            {this.state.availableParts.TOP[this.state.selectedParts.TOP].price}$
-                        </div>
-                        <button
+                        <button className="swap-button"
                             onClick={() => {
                                 this.rotatePart("TOP");
                             }}
-                        >
-                            TOP
-                        </button>
+                        ></button>
                     </div>
-                    <div className="robot-left">
-                        <div className="selected-part">
-                            {this.state.availableParts.LEFT[this.state.selectedParts.LEFT].name}
+                    <div className="robot-left flex-row">
+                        <div className="part-left">
+                            <div className="selected-part">
+                                {this.state.availableParts.LEFT[this.state.selectedParts.LEFT].name}
+                            </div>
+                            <div className="selected-part-price">
+                                {this.state.availableParts.LEFT[this.state.selectedParts.LEFT].price}$
+                            </div>
                         </div>
-                        <div className="selected-part-price">
-                            {this.state.availableParts.LEFT[this.state.selectedParts.LEFT].price}$
-                        </div>
-                        <button
+                        <button className="swap-button"
                             onClick={() => {
                                 this.rotatePart("LEFT");
                             }}
-                        >
-                            LEFT
-                        </button>
+                        ></button>
                     </div>
-                    <div className="robot-right">
-                        <div className="selected-part">
-                            {this.state.availableParts.RIGHT[this.state.selectedParts.RIGHT].name}
+                    <div className="robot-right flex-row">
+                        <div className="part-left">
+                            <div className="selected-part">
+                                {this.state.availableParts.RIGHT[this.state.selectedParts.RIGHT].name}
+                            </div>
+                            <div className="selected-part-price">
+                                {this.state.availableParts.RIGHT[this.state.selectedParts.RIGHT].price}$
+                            </div>
                         </div>
-                        <div className="selected-part-price">
-                            {this.state.availableParts.RIGHT[this.state.selectedParts.RIGHT].price}$
-                        </div>
-                        <button
+                        <button className="swap-button"
                             onClick={() => {
                                 this.rotatePart("RIGHT");
                             }}
-                        >
-                            RIGHT
-                        </button>
+                        ></button>
                     </div>
-                    <div className="robot-bottom">
-                        <div className="selected-part">
-                            {this.state.availableParts.BOTTOM[this.state.selectedParts.BOTTOM].name}
+                    <div className="robot-bottom flex-row">
+                        <div className="part-left">
+                            <div className="selected-part">
+                                {this.state.availableParts.BOTTOM[this.state.selectedParts.BOTTOM].name}
+                            </div>
+                            <div className="selected-part-price">
+                                {
+                                    this.state.availableParts.BOTTOM[this.state.selectedParts.BOTTOM]
+                                        .price
+                                }$
+                            </div>
                         </div>
-                        <div className="selected-part-price">
-                            {
-                                this.state.availableParts.BOTTOM[this.state.selectedParts.BOTTOM]
-                                    .price
-                            }$
-                        </div>
-                        <button
+                        <button className="swap-button"
                             onClick={() => {
                                 this.rotatePart("BOTTOM");
                             }}
-                        >
-                            BOTTOM
-                        </button>
+                        ></button>
                     </div>
-                    <button
-                        className="start-button"
-                        disabled={!this.state.loaded}
-                        onClick={this.startGame}
-                    />
                 </div>
+                <button
+                    className="button-container start-button"
+                    disabled={!this.state.loaded}
+                    onClick={this.startGame}
+                />
             </div>
         );
     }

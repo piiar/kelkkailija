@@ -70,8 +70,8 @@ body, html, #root, #root > div {
 }
 .swap-button,
 .swap-button:active {
-    width: 9em;
-    height: 3.8em;
+    width: 6em;
+    height: 2.5em;
     border: none;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -125,4 +125,16 @@ body, html, #root, #root > div {
 
 .top-bar.name {
     text-shadow: 2px 2px 2px;
+}
+
+.part-left {
+    padding-right: 10px;
+}
+
+.choose-robot-title,
+.robot-top,
+.robot-bottom,
+.robot-left,
+.robot-right {
+    margin-bottom: 10px;
 }

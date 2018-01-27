@@ -185,7 +185,7 @@ class App extends Component {
                 loadingDots = <span> <span>.</span><span>.</span><span>.</span></span>;
             }
             return (
-                <div className="App zero flex-col flex-align-center flex-justify-stretch">
+                <div className="App flex-col">
                     <div className="welcome-title">Welcome</div>
                     <div className="output-container flex1 flex-col flex-align-center flex-justify-center">
                         <div id="wsoutput">{output}</div><div className="loading big">{loadingDots}</div>
@@ -202,7 +202,7 @@ class App extends Component {
             );
         } else if (this.state.step === this.state.gameStates.CHOOSE_ROBOT) {
             return (
-                <div className="App">
+                <div className="App flex-col">
                     <ChooseRobot
                         name={this.state.name}
                         points={this.state.points}
@@ -212,7 +212,7 @@ class App extends Component {
             );
         } else if (this.state.step === this.state.gameStates.INGAME) {
             return (
-                <div className="App">
+                <div className="App flex-col">
                     <Actions aiMode={this.state.aiMode} name={this.state.name} points={this.state.points} />
                 </div>
             );
