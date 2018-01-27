@@ -29,13 +29,15 @@ body, html, #root, #root > div {
 }
 
 .App {
+    color: white;
+    font-size: 17px;
     height: 100%;
     text-align: center;
     background: linear-gradient(#e42f2f, #a01010);
 }
 
 .welcome-title,
-.start-button {
+.button-container {
     margin: 20px;
 }
 
@@ -55,4 +57,40 @@ body, html, #root, #root > div {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+}
+
+.transmit-extra {
+    font-size: 10px;
+}
+.transmit {
+    font-size: 16px;
+}
+
+/* Loading animation */
+@keyframes blink {
+    0% {
+        opacity: .2;
+    }
+    20% {
+        opacity: 1;
+    }
+    100% {
+        opacity: .2;
+    }
+}
+.loading.big {
+    font-size: 100px;
+    line-height: 10px;
+}
+.loading span {
+    animation-name: blink;
+    animation-duration: 1.4s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+}
+.loading span:nth-child(2) {
+    animation-delay: .2s;
+}
+.loading span:nth-child(3) {
+    animation-delay: .4s;
 }
