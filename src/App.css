@@ -3,6 +3,9 @@ body, html, #root, #root > div {
     font-family: Calibri;
 }
 
+.full-width {
+    width: 100%;
+}
 .flex1 {
     display: flex;
     flex: 1 1 auto;
@@ -87,6 +90,50 @@ body, html, #root, #root > div {
 }
 .choose-robot-title {
     font-size: 20px;
+}
+
+.selection-container {
+    position: relative;
+    border-radius: 10px;
+    background: linear-gradient(#5f5fec,#0a0a98);
+    width: calc(100vw - 20px);
+    max-height: calc(100vh - 20px);
+}
+
+.color-selector {
+    position: absolute;
+    z-index: 2;
+    border-radius: 10px;
+    top:10px;
+    left:10px;
+    right:10px;
+    bottom:10px;
+    width: calc(100vw - 50px);
+    height: calc(100vh - 50px);
+    background: linear-gradient(#333333,#191920);
+    padding: 15px;
+    justify-content: center;
+    align-items: center;
+}
+.color-selector-title {
+    padding-bottom: 20px;
+}
+.color-container {
+    flex-wrap: wrap;
+}
+.color-container > .color-selector-button {
+    margin: 10px;
+}
+.color-selector-button.main {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+.color-selector-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.5);
 }
 
 /* Loading animation */
