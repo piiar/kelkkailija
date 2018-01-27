@@ -14,7 +14,7 @@ class App extends Component {
             fullscreen: false,
             step: 0,
             loaded: false,
-            budget: 6000,
+            budget: 1000,
             gameStates: {
                 WELCOME: 0,
                 CHOOSE_ROBOT: 1,
@@ -89,8 +89,12 @@ class App extends Component {
             });
         }
 
-        this.writeToScreen('<div>Your assigned serial number is</div>'+
-                            '<div style="font-size: 1.5em">' + this.state.name + '</div>');
+        this.writeToScreen(
+            "<div>Your assigned serial number is</div>" +
+                '<div style="font-size: 1.5em">' +
+                this.state.name +
+                "</div>"
+        );
     }
 
     onError(evt) {
@@ -172,23 +176,32 @@ class App extends Component {
                 output = <div>Transmitting</div>;
             }
             if (this.state.name) {
-                transmitText = 'Your transmission is being relayed.';
-                transmitExtra = 'You will be displayed in the lobby within 25 seconds.';
-                startButton = <button
-                    className="start-button"
-                    disabled={!this.state.loaded}
-                    onClick={this.startGame}
-                />;
-            }
-            else {
-                transmitText = 'Transmitting';
-                loadingDots = <span> <span>.</span><span>.</span><span>.</span></span>;
+                transmitText = "Your transmission is being relayed.";
+                transmitExtra = "You will be displayed in the lobby within 25 seconds.";
+                startButton = (
+                    <button
+                        className="start-button"
+                        disabled={!this.state.loaded}
+                        onClick={this.startGame}
+                    />
+                );
+            } else {
+                transmitText = "Transmitting";
+                loadingDots = (
+                    <span>
+                        {" "}
+                        <span>.</span>
+                        <span>.</span>
+                        <span>.</span>
+                    </span>
+                );
             }
             return (
                 <div className="App flex-col">
                     <div className="welcome-title">Welcome</div>
                     <div className="output-container flex1 flex-col flex-align-center flex-justify-center">
-                        <div id="wsoutput">{output}</div><div className="loading big">{loadingDots}</div>
+                        <div id="wsoutput">{output}</div>
+                        <div className="loading big">{loadingDots}</div>
                     </div>
                     <div className="button-container">
                         <div className="transmit loading">
@@ -213,7 +226,11 @@ class App extends Component {
         } else if (this.state.step === this.state.gameStates.INGAME) {
             return (
                 <div className="App flex-col">
-                    <Actions aiMode={this.state.aiMode} name={this.state.name} points={this.state.points} />
+                    <Actions
+                        aiMode={this.state.aiMode}
+                        name={this.state.name}
+                        points={this.state.points}
+                    />
                 </div>
             );
         } else if (this.state.step === this.state.gameStates.HIGHSCORE) {
