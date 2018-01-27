@@ -15,6 +15,7 @@ class App extends Component {
             step: 0,
             loaded: false,
             budget: 1000,
+            robotInLobby: false,
             robotselected: false,
             gameStates: {
                 WELCOME: 0,
@@ -33,6 +34,7 @@ class App extends Component {
         this.quit = this.quit.bind(this);
         this.toggleFullscreen = this.toggleFullscreen.bind(this);
         this.handletransmitRobot = this.handletransmitRobot.bind(this);
+        this.transmitRobot = this.transmitRobot.bind(this);
     }
 
     componentDidMount() {
@@ -106,8 +108,12 @@ class App extends Component {
 
         if (dataJson.command && dataJson.command === "startGame") {
             if (this.state.robotselected) {
+                if (this.state.robotInLobby) {
+                    this.transmitRobot(this.state.selectedParts);
+                }
                 this.setState({
                     step: this.state.gameStates.INGAME,
+                    robotInLobby: false,
                     gameStarted: true
                 });
             } else {
@@ -194,14 +200,20 @@ class App extends Component {
             this.setState({
                 step: this.state.gameStates.INGAME,
                 selectedParts: selectedParts,
+                robotInLobby: false,
                 robotselected: true
             });
+            this.transmitRobot(selectedParts);
         } else {
             this.setState({
                 selectedParts: selectedParts,
+                robotInLobby: true,
                 robotselected: true
             });
         }
+    }
+
+    transmitRobot(selectedParts) {
         let message = {
             command: "transmitRobot",
             robot: selectedParts

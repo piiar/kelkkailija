@@ -61,17 +61,11 @@ class ChooseRobot extends Component {
             selectedPartsCopy[part] = 0;
         }
 
-        this.setState({
-            selectedParts: selectedPartsCopy
-        });
-
         let newPrice = this.totalPrice(selectedPartsCopy);
-        this.setState({
-            price: newPrice
-        });
-
         let canAfford = newPrice > this.props.budget ? false : true;
         this.setState({
+            selectedParts: selectedPartsCopy,
+            price: newPrice,
             canAfford: canAfford
         });
     }
@@ -194,7 +188,10 @@ class ChooseRobot extends Component {
                     </div>
                 </div>
                 {this.state.robotTransmitted ? (
-                    <span className="button-container">Robot transmitted! Waiting for launch <span className="loading">{loadingDots}</span></span>
+                    <span className="button-container">
+                        Robot transmitted! Waiting for launch{" "}
+                        <span className="loading">{loadingDots}</span>
+                    </span>
                 ) : (
                     <button
                         className="button-container start-button"
