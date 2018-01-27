@@ -17,9 +17,9 @@ class ChooseRobot extends Component {
             },
             availableParts: {
                 TOP: [
-                    { name: "lo-head", price: 0 },
-                    { name: "mid-head", price: 250 },
-                    { name: "hi-head", price: 1000 }
+                    { name: "ai-kill", price: 0 },
+                    { name: "ai-bonus", price: 0 },
+                    { name: "ai-defence", price: 0 }
                 ],
                 LEFT: [
                     { name: "lo-left", price: 0 },
@@ -76,7 +76,7 @@ class ChooseRobot extends Component {
     }
 
     robotChange() {
-        console.log('robot change in chooserobot', this.state.selectedParts);
+        console.log("robot change in chooserobot", this.state.selectedParts);
         this.props.robotChange(this.state.selectedParts);
     }
 
