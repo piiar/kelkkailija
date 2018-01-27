@@ -8,9 +8,9 @@ class Actions extends Component {
             session: null,
             availableParts: {
                 TOP: [
-                    { name: "ai-kill", price: 0 },
-                    { name: "ai-bonus", price: 0 },
-                    { name: "ai-defence", price: 0 }
+                    { name: "ai-aggressive", price: 0 },
+                    { name: "ai-flanking", price: 0 },
+                    { name: "ai-objective", price: 0 }
                 ]
             },
             // Default selected part:

@@ -103,7 +103,7 @@ class App extends Component {
             this.setState({
                 name: dataJson.name,
                 points: dataJson.points,
-                gameStarted: dataJson.gameStarted == "true",
+                gameStarted: dataJson.gameStarted === "true",
                 token: dataJson.token
             });
             this.writeToScreen(

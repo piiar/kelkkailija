@@ -17,7 +17,7 @@ class ChooseRobot extends Component {
                 RIGHT: 0,
                 BOTTOM: 0
             },
-            selectedColor: '#eeecec',
+            selectedColor: "#eeecec",
             availableParts: {
                 TOP: [
                     { name: "ai-aggressive", price: 0 },
@@ -40,8 +40,32 @@ class ChooseRobot extends Component {
                     { name: "hi-bottom", price: 1000 }
                 ]
             },
-            colorsList: ['#eeecec','#d838ff','#77258c','#0e0e0e','#3d3838','#f437ab','#9f0c66','#530a37','#1985ca','#2f38e6','#242f65','#10173b','#61ffcd','#4cca4f','#56911c','#2d9548','#ffe92f','#f5993e','#f08d00','#e9fd3f','#f74a46','#fa3823','#ca0d09','#63090f']
-
+            colorsList: [
+                "#eeecec",
+                "#d838ff",
+                "#77258c",
+                "#0e0e0e",
+                "#3d3838",
+                "#f437ab",
+                "#9f0c66",
+                "#530a37",
+                "#1985ca",
+                "#2f38e6",
+                "#242f65",
+                "#10173b",
+                "#61ffcd",
+                "#4cca4f",
+                "#56911c",
+                "#2d9548",
+                "#ffe92f",
+                "#f5993e",
+                "#f08d00",
+                "#e9fd3f",
+                "#f74a46",
+                "#fa3823",
+                "#ca0d09",
+                "#63090f"
+            ]
         };
         this.totalPrice = this.totalPrice.bind(this);
         this.rotatePart = this.rotatePart.bind(this);
@@ -90,7 +114,7 @@ class ChooseRobot extends Component {
     }
 
     colorSelected(color) {
-        console.log('color selected', color);
+        console.log("color selected", color);
         this.setState({
             selectedColor: color
         });
@@ -107,16 +131,23 @@ class ChooseRobot extends Component {
         );
         return (
             <div className="flex1 flex-align-center flex-justify-stretch flex-col">
-                {this.state.showColorSelector ? 
+                {this.state.showColorSelector ? (
                     <div className="color-selector flex-col" onClick={this.toggleColorSelector}>
                         <span className="color-selector-title">Select the color of your unit</span>
                         <div className="flex-row color-container flex-justify-center flex-align-center">
                             {this.state.colorsList.map((color, i) => {
-                                return (<div className="color-selector-button" key={i} onClick={() => this.colorSelected(color)} style={{ background: color }}></div>);
+                                return (
+                                    <div
+                                        className="color-selector-button"
+                                        key={i}
+                                        onClick={() => this.colorSelected(color)}
+                                        style={{ background: color }}
+                                    />
+                                );
                             })}
                         </div>
-                    </div> : null
-                }
+                    </div>
+                ) : null}
                 <TopBar name={this.props.name} points={this.props.points} />
                 <div className="flex-align-center full-width flex1 flex-col">
                     <div className="choose-robot-title margin-bottom10">
@@ -127,14 +158,24 @@ class ChooseRobot extends Component {
                         {this.state.canAfford ? null : <span>!!!TOO EXPENSIVE!!!</span>}
                     </div>
                     <div className="selection-container flex-justify-center flex-align-center flex1 flex-col full-width">
-                        <div className="color-selector-button main" onClick={this.toggleColorSelector} style={{ background: this.state.selectedColor }}></div>
+                        <div
+                            className="color-selector-button main"
+                            onClick={this.toggleColorSelector}
+                            style={{ background: this.state.selectedColor }}
+                        />
                         <div className="robot-top margin-bottom10 flex-row flex-align-center">
                             <div className="part-left">
                                 <div className="selected-part">
-                                    {this.state.availableParts.TOP[this.state.selectedParts.TOP].name}
+                                    {
+                                        this.state.availableParts.TOP[this.state.selectedParts.TOP]
+                                            .name
+                                    }
                                 </div>
                                 <div className="selected-part-price">
-                                    {this.state.availableParts.TOP[this.state.selectedParts.TOP].price}$
+                                    {
+                                        this.state.availableParts.TOP[this.state.selectedParts.TOP]
+                                            .price
+                                    }$
                                 </div>
                             </div>
                             {this.state.robotTransmitted ? null : (
@@ -149,12 +190,17 @@ class ChooseRobot extends Component {
                         <div className="robot-left margin-bottom10 flex-row flex-align-center">
                             <div className="part-left">
                                 <div className="selected-part">
-                                    {this.state.availableParts.LEFT[this.state.selectedParts.LEFT].name}
+                                    {
+                                        this.state.availableParts.LEFT[
+                                            this.state.selectedParts.LEFT
+                                        ].name
+                                    }
                                 </div>
                                 <div className="selected-part-price">
                                     {
-                                        this.state.availableParts.LEFT[this.state.selectedParts.LEFT]
-                                            .price
+                                        this.state.availableParts.LEFT[
+                                            this.state.selectedParts.LEFT
+                                        ].price
                                     }$
                                 </div>
                             </div>
@@ -171,14 +217,16 @@ class ChooseRobot extends Component {
                             <div className="part-left">
                                 <div className="selected-part">
                                     {
-                                        this.state.availableParts.RIGHT[this.state.selectedParts.RIGHT]
-                                            .name
+                                        this.state.availableParts.RIGHT[
+                                            this.state.selectedParts.RIGHT
+                                        ].name
                                     }
                                 </div>
                                 <div className="selected-part-price">
                                     {
-                                        this.state.availableParts.RIGHT[this.state.selectedParts.RIGHT]
-                                            .price
+                                        this.state.availableParts.RIGHT[
+                                            this.state.selectedParts.RIGHT
+                                        ].price
                                     }$
                                 </div>
                             </div>
@@ -218,12 +266,12 @@ class ChooseRobot extends Component {
                             )}
                         </div>
                     </div>
-                    {this.state.robotTransmitted ? (<span className="loading big">{loadingDots}</span>) : null}
+                    {this.state.robotTransmitted ? (
+                        <span className="loading big">{loadingDots}</span>
+                    ) : null}
                 </div>
                 {this.state.robotTransmitted ? (
-                    <span className="button-container">
-                        Robot transmitted! Waiting for launch
-                    </span>
+                    <span className="button-container">Robot transmitted! Waiting for launch</span>
                 ) : (
                     <button
                         className="button-container start-button"
