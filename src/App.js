@@ -76,28 +76,26 @@ class App extends Component {
         this.setState({
             loaded: true
         });
-        if (evt.data.name) {
+
+        let dataJson = JSON.parse(evt.data.replace(/'/g, '"'));
+
+        if (dataJson.name) {
             this.setState({
-                name: evt.data.name,
-                points: evt.data.points,
-                sessionId: evt.data.sessionId
+                name: dataJson.name,
+                points: dataJson.points,
+                token: dataJson.token
             });
         }
-        this.writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data + "</span>");
+
+        this.writeToScreen('<div>Your assigned serial number is</div>'+
+                            '<div style="font-size: 1.5em">' + this.state.name + '</div>');
     }
 
     onError(evt) {
         this.setState({
             loaded: true
         });
-        this.writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
-
-        // NOTE: This is for debugging
-        this.setState({
-            name: "HermanniHermeshön",
-            points: 100,
-            sessionId: 12312
-        });
+        this.writeToScreen('<span style="color: orange;">ERROR:</span> ' + evt.data);
     }
 
     doSend(message) {
@@ -109,7 +107,8 @@ class App extends Component {
         var pre = document.createElement("p");
         pre.style.wordWrap = "break-word";
         pre.innerHTML = message;
-        this.state.wsoutput.appendChild(pre);
+        // this.state.wsoutput.appendChild(pre);
+        this.state.wsoutput.innerHTML = pre.outerHTML;
     }
 
     toggleFullscreen() {
@@ -154,7 +153,6 @@ class App extends Component {
     }
 
     startGame() {
-        console.log("start the game");
         this.toggleFullscreen();
         this.setState({
             step: 1
@@ -167,21 +165,38 @@ class App extends Component {
 
     render() {
         if (this.state.step === this.state.gameStates.WELCOME) {
-            let output;
+            let output, transmitText, transmitExtra, startButton, loadingDots;
             if (!this.state.loaded) {
-                output = <div>Loading...</div>;
+                output = <div>Transmitting</div>;
+            }
+            if (this.state.name) {
+                transmitText = 'Your transmission is being relayed.';
+                transmitExtra = 'You will be displayed in the lobby within 25 seconds.';
+                startButton = <button
+                    className="start-button"
+                    disabled={!this.state.loaded}
+                    onClick={this.startGame}
+                />;
+            }
+            else {
+                transmitText = 'Transmitting';
+                loadingDots = <span> <span>.</span><span>.</span><span>.</span></span>;
             }
             return (
                 <div className="App zero flex-col flex-align-center flex-justify-stretch">
                     <div className="welcome-title">Welcome</div>
-                    <div className="output-container flex1 flex-align-center flex-justify-center">
-                        <div id="wsoutput">{output}</div>
+                    <div className="output-container flex1 flex-col flex-align-center flex-justify-center">
+                        <div id="wsoutput">{output}</div><div className="loading big">{loadingDots}</div>
                     </div>
-                    <button
-                        className="start-button"
-                        disabled={!this.state.loaded}
-                        onClick={this.startGame}
-                    />
+                    <div className="button-container">
+                        <div className="transmit loading">
+                            {transmitText}
+                            {loadingDots}
+                        </div>
+                        <div className="transmit-extra">{transmitExtra}</div>
+                        {startButton}
+                    </div>
+
                     {/* <button type="button" onClick={this.quit}>
                         sulje websocket
                     </button> */}
