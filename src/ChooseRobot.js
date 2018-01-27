@@ -40,6 +40,7 @@ class ChooseRobot extends Component {
         };
         this.totalPrice = this.totalPrice.bind(this);
         this.rotatePart = this.rotatePart.bind(this);
+        this.robotChange = this.robotChange.bind(this);
     }
 
     totalPrice(selectedParts) {
@@ -72,6 +73,11 @@ class ChooseRobot extends Component {
         this.setState({
             canAfford: canAfford
         });
+    }
+
+    robotChange() {
+        console.log('robot change in chooserobot', this.state.selectedParts);
+        this.props.robotChange(this.state.selectedParts);
     }
 
     render() {
@@ -171,7 +177,7 @@ class ChooseRobot extends Component {
                 <button
                     className="button-container start-button"
                     disabled={!this.state.canAfford}
-                    onClick={this.startGame}
+                    onClick={this.robotChange}
                 />
             </div>
         );
