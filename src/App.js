@@ -25,7 +25,7 @@ class App extends Component {
         this.startGame = this.startGame.bind(this);
         this.quit = this.quit.bind(this);
         this.toggleFullscreen = this.toggleFullscreen.bind(this);
-        this.handleRobotChange = this.handleRobotChange.bind(this);
+        this.handletransmitRobot = this.handletransmitRobot.bind(this);
     }
 
     componentDidMount() {
@@ -170,9 +170,9 @@ class App extends Component {
         this.state.ws.close();
     }
 
-    handleRobotChange(selectedParts) {
+    handletransmitRobot(selectedParts) {
         let message = {
-            command: 'robotChange',
+            command: 'transmitRobot',
             robot: selectedParts
         }
         if (this.state.loaded) {
@@ -230,7 +230,7 @@ class App extends Component {
             return (
                 <div className="App flex-col">
                     <ChooseRobot
-                        robotChange={this.handleRobotChange}
+                        transmitRobot={this.handletransmitRobot}
                         name={this.state.name}
                         points={this.state.points}
                         budget={this.state.budget}
