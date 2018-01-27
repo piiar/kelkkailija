@@ -15,6 +15,7 @@ class App extends Component {
             loaded: false
         };
         this.startGame = this.startGame.bind(this);
+        this.quit = this.quit.bind(this);
         this.toggleFullscreen = this.toggleFullscreen.bind(this);
     }
 
@@ -77,7 +78,6 @@ class App extends Component {
             });
         }
         this.writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data + "</span>");
-        this.state.ws.close();
     }
 
     onError(evt) {
@@ -148,18 +148,22 @@ class App extends Component {
     }
 
     startGame() {
-        console.log('start the game');
+        console.log("start the game");
         this.toggleFullscreen();
         this.setState({
             step: 1
         });
     }
 
+    quit() {
+        this.state.ws.close();
+    }
+
     render() {
         if (this.state.step === 0) {
             let output;
             if (!this.state.loaded) {
-                output = <div>Loading...</div>
+                output = <div>Loading...</div>;
             }
             return (
                 <div className="App zero flex-col flex-align-center flex-justify-stretch">
@@ -168,6 +172,9 @@ class App extends Component {
                         <div id="wsoutput">{output}</div>
                     </div>
                     <button className="start-button" disabled={!this.state.loaded} onClick={this.startGame}></button>
+                    {/* <button type="button" onClick={this.quit}>
+                        sulje websocket
+                    </button> */}
                 </div>
             );
         } else if (this.state.step === 1) {
