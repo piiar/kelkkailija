@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import ChooseRobot from "./ChooseRobot";
+import Actions from "./Actions";
 
 class App extends Component {
     constructor(props) {
@@ -197,10 +198,6 @@ class App extends Component {
                         <div className="transmit-extra">{transmitExtra}</div>
                         {startButton}
                     </div>
-
-                    {/* <button type="button" onClick={this.quit}>
-                        sulje websocket
-                    </button> */}
                 </div>
             );
         } else if (this.state.step === this.state.gameStates.CHOOSE_ROBOT) {
@@ -214,6 +211,11 @@ class App extends Component {
                 </div>
             );
         } else if (this.state.step === this.state.gameStates.INGAME) {
+            return (
+                <div className="App">
+                    <Actions aiMode={this.state.aiMode} name={this.state.name} points={this.state.points} />
+                </div>
+            );
         } else if (this.state.step === this.state.gameStates.HIGHSCORE) {
         }
     }

@@ -12,6 +12,10 @@ body, html, #root, #root > div {
     display: flex;
     flex-direction: column;
 }
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
 
 .flex-align-center {
     display: flex;
@@ -48,10 +52,26 @@ body, html, #root, #root > div {
 .start-button:active {
     background: url('assets/ok_pressed.png');
 }
+.swap-button {
+    background: url('assets/swap_idle.png');
+}
+.swap-button:active {
+    background: url('assets/swap_pressed.png');
+}
 .start-button,
 .start-button:active {
     width: 5em;
     height: 5em;
+    border: none;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.swap-button,
+.swap-button:active {
+    width: 9em;
+    height: 3.8em;
     border: none;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -93,4 +113,16 @@ body, html, #root, #root > div {
 }
 .loading span:nth-child(3) {
     animation-delay: .4s;
+}
+
+.top-bar {
+    width: 100%;
+}
+
+.top-bar div {
+    padding: 10px;
+}
+
+.top-bar.name {
+    text-shadow: 2px 2px 2px;
 }
