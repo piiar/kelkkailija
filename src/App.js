@@ -13,6 +13,7 @@ class App extends Component {
             fullscreen: false,
             step: 0,
             loaded: false,
+            budget: 6000,
             gameStates: {
                 WELCOME: 0,
                 CHOOSE_ROBOT: 1,
@@ -190,7 +191,11 @@ class App extends Component {
         } else if (this.state.step === this.state.gameStates.CHOOSE_ROBOT) {
             return (
                 <div className="App">
-                    <ChooseRobot name={this.state.name} points={this.state.points} />
+                    <ChooseRobot
+                        name={this.state.name}
+                        points={this.state.points}
+                        budget={this.state.budget}
+                    />
                 </div>
             );
         } else if (this.state.step === this.state.gameStates.INGAME) {
