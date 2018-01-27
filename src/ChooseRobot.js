@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 
-class Step1 extends Component {
+class ChooseRobot extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -12,10 +11,10 @@ class Step1 extends Component {
     render() {
         return (
             <div className="App">
-                Step1
+                ChooseRobot
             </div>
         );
     }
 }
 
-export default Step1;
+export default ChooseRobot;

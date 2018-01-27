@@ -1,15 +1,18 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
+import ChooseRobot from "./ChooseRobot";
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            wsUri: "ws://localhost:7777/",
-            output: null,
+            wsUri: "ws://91.159.111.132:7777/",
+            // wsUri: "ws://localhost:7777/",
+            wsoutput: null,
             ws: null,
-            fullscreen: false
+            fullscreen: false,
+            step: 0,
+            loaded: false
         };
         this.startGame = this.startGame.bind(this);
         this.toggleFullscreen = this.toggleFullscreen.bind(this);
@@ -17,7 +20,7 @@ class App extends Component {
 
     componentDidMount() {
         this.setState({
-            output: document.getElementById("output")
+            wsoutput: document.getElementById("wsoutput")
         });
         this.testWebSocket();
     }
@@ -48,20 +51,32 @@ class App extends Component {
     }
 
     onOpen(evt) {
+        this.setState({
+            loaded: true
+        });
         this.writeToScreen("CONNECTED");
         this.doSend("{'command': 'joinGame'}");
     }
 
     onClose(evt) {
+        this.setState({
+            loaded: true
+        });
         this.writeToScreen("DISCONNECTED");
     }
 
     onMessage(evt) {
+        this.setState({
+            loaded: true
+        });
         this.writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data + "</span>");
         this.state.ws.close();
     }
 
     onError(evt) {
+        this.setState({
+            loaded: true
+        });
         this.writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
     }
 
@@ -74,7 +89,7 @@ class App extends Component {
         var pre = document.createElement("p");
         pre.style.wordWrap = "break-word";
         pre.innerHTML = message;
-        this.state.output.appendChild(pre);
+        this.state.wsoutput.appendChild(pre);
     }
 
     toggleFullscreen() {
@@ -121,21 +136,33 @@ class App extends Component {
     startGame() {
         console.log('start the game');
         this.toggleFullscreen();
+        this.setState({
+            step: 1
+        });
     }
 
     render() {
-        let fullscreenButton = null;
-        if (this.state.fullscreen) {
-            fullscreenButton = <div className="start-button fullscreen" onClick={this.toggleFullscreen}></div>;
-        } else {
-            fullscreenButton = <div className="start-button" onClick={this.startGame}></div>;
+        if (this.state.step === 0) {
+            let output;
+            if (!this.state.loaded) {
+                output = <div>Loading...</div>
+            }
+            return (
+                <div className="App zero">
+                    <div className="welcome-title">Welcome</div>
+                    <div className="output-container">
+                        <div id="wsoutput">{output}</div>
+                    </div>
+                    <div className="start-button" onClick={this.startGame}></div>
+                </div>
+            );
+        } else if (this.state.step === 1) {
+            return (
+                <div className="App">
+                    <ChooseRobot />
+                </div>
+            );
         }
-        return (
-            <div className="App">
-                {fullscreenButton}
-                <div id="output" />
-            </div>
-        );
     }
 }
 

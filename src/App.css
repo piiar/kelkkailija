@@ -7,8 +7,20 @@ body, html, #root, #root > div {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: stretch;
     background: linear-gradient(#e42f2f, #a01010);
+}
+
+.output-container {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.welcome-title,
+.start-button {
+    margin: 20px;
 }
 
 .start-button {
