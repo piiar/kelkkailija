@@ -95,7 +95,7 @@ class App extends Component {
         if (dataJson.money) {
             let newBudget = this.state.budget + dataJson.money;
             this.setState({
-                budget: newBudget;
+                budget: newBudget
             });
         }
 
