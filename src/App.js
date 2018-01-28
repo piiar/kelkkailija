@@ -140,6 +140,7 @@ class App extends Component {
                 robotInLobby: false,
                 gameStarted: false
             });
+            this.doSend("{'command': 'joinGame'}");
         }
     }
 
