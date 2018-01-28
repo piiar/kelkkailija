@@ -6,28 +6,42 @@ class Actions extends Component {
         super(props);
         this.state = {
             session: null,
+            showTopItemSelector: false,
             availableParts: {
                 TOP: [
-                    { name: "ai-aggressive", price: 0 },
-                    { name: "ai-flanking", price: 0 },
-                    { name: "ai-objective", price: 0 }
-                ]
+                    { name: "ai-aggressive", real_name: "Aggressive", image: "generic_program", description: "Aim to kill the host player as fast as possible", price: 0 },
+                    { name: "ai-flanking", real_name: "Flanking", image: "generic_program", description: "Don't rush in to killing but instead flank the player from behind", price: 0 },
+                    { name: "ai-objective", real_name: "Objective", image: "generic_program", description: "Collect as much points and money from the field as possible", price: 0 }
+                ],
             },
             // Default selected part:
             selectedParts: props.selectedParts
         };
 
-        this.rotatePart = this.rotatePart.bind(this);
         this.changeRobot = this.changeRobot.bind(this);
+        this.swapWeapon = this.swapWeapon.bind(this);
+        this.toggleItemSelector = this.toggleItemSelector.bind(this);
     }
 
-    rotatePart(part) {
-        let maxIndex = this.state.availableParts[part].length - 1;
-        let selectedPartsCopy = { ...this.state.selectedParts };
-        selectedPartsCopy[part]++;
-        if (selectedPartsCopy[part] > maxIndex) {
-            selectedPartsCopy[part] = 0;
+    changeRobot() {
+        this.props.changeRobot(this.state.selectedParts);
+    }
+
+    toggleItemSelector(item) {
+        if (item === 'TOP') {
+            this.setState({
+                showTopItemSelector: !this.state.showTopItemSelector
+            });
         }
+    }
+
+    swapWeapon(item, part) {
+        let selectedPartsCopy = { ...this.state.selectedParts };
+
+        // get the index of the part
+        let idx = this.state.availableParts[item].indexOf(part);
+        // update selectedpart index
+        selectedPartsCopy[item] = idx;
 
         if (this.state.transmitTimeout) {
             clearTimeout(this.state.transmitTimeout);
@@ -41,13 +55,30 @@ class Actions extends Component {
         });
     }
 
-    changeRobot() {
-        this.props.changeRobot(this.state.selectedParts);
-    }
-
     render() {
         return (
             <div className="flex1 flex-align-center flex-justify-center flex-col">
+                {/* TOP item selector */}
+                {this.state.showTopItemSelector ? (
+                    <div className="item-selector flex-col" onClick={() => this.toggleItemSelector('TOP')}>
+                        <span className="item-selector-title">Select your AI mode</span>
+                        <div className="flex-col flex1 item-container flex-justify-center flex-align-center">
+                            {this.state.availableParts['TOP'].map((part, i) => {
+                                const imageUrl = require('./assets/' + part.image + '.png');
+                                console.log('part', part, imageUrl);
+                                return (
+                                    <div key={i} className="weapon-container full-width flex-row" onClick={() => this.swapWeapon('TOP', part)}>
+                                        <div className="icon" style={{ backgroundImage: `url(${imageUrl})` }}></div>
+                                        <div className="texts flex-col flex1">
+                                            <div className="weapon-name full-width">{part.real_name} (${part.price})</div>
+                                            <div className="weapon-desc">{part.description}</div>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                ) : null}
                 <TopBar
                     color={this.props.selectedColor}
                     name={this.props.name}
@@ -60,14 +91,12 @@ class Actions extends Component {
                     <div className="robot-top flex-row flex-align-center">
                         <div className="part-left">
                             <div className="selected-part">
-                                {this.state.availableParts.TOP[this.state.selectedParts.TOP].name}
+                                {this.state.availableParts.TOP[this.state.selectedParts.TOP].real_name}
                             </div>
                         </div>
                         <button
                             className="swap-button"
-                            onClick={() => {
-                                this.rotatePart("TOP");
-                            }}
+                            onClick={() => this.toggleItemSelector('TOP')}
                         />
                     </div>
                 </div>
