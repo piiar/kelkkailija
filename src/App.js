@@ -24,6 +24,7 @@ class App extends Component {
                 INGAME: 2,
                 HIGHSCORE: 3
             },
+            selectedColor: "#eeecec",
             selectedParts: {
                 TOP: 0,
                 LEFT: 0,
@@ -118,7 +119,7 @@ class App extends Component {
         if (dataJson.command && dataJson.command === "startGame") {
             if (this.state.robotselected) {
                 if (this.state.robotInLobby) {
-                    this.transmitRobot(this.state.selectedParts);
+                    this.transmitRobot(this.state.selectedParts, this.state.selectedColor);
                 }
                 this.setState({
                     step: this.state.gameStates.INGAME,
@@ -204,18 +205,20 @@ class App extends Component {
         this.state.ws.close();
     }
 
-    handletransmitRobot(selectedParts) {
+    handletransmitRobot(selectedParts, color) {
         if (this.state.gameStarted) {
             this.setState({
                 step: this.state.gameStates.INGAME,
                 selectedParts: selectedParts,
+                selectedColor: color,
                 robotInLobby: false,
                 robotselected: true
             });
-            this.transmitRobot(selectedParts);
+            this.transmitRobot(selectedParts, color);
         } else {
             this.setState({
                 selectedParts: selectedParts,
+                selectedColor: color,
                 robotInLobby: true,
                 robotselected: true
             });
@@ -223,9 +226,10 @@ class App extends Component {
         console.log(this.state.step);
     }
 
-    transmitRobot(selectedParts) {
+    transmitRobot(selectedParts, color) {
         let message = {
             command: "transmitRobot",
+            color: color,
             robot: selectedParts
         };
         if (this.state.loaded) {
@@ -312,6 +316,7 @@ class App extends Component {
                 <div className="App flex-col">
                     <Actions
                         selectedParts={this.state.selectedParts}
+                        selectedColor={this.state.selectedColor}
                         changeRobot={this.handlechangeRobot}
                         name={this.state.name}
                         budget={this.state.budget}

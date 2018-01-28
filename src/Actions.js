@@ -48,7 +48,11 @@ class Actions extends Component {
     render() {
         return (
             <div className="flex1 flex-align-center flex-justify-center flex-col">
-                <TopBar name={this.props.name} points={this.props.points} />
+                <TopBar
+                    color={this.props.selectedColor}
+                    name={this.props.name}
+                    points={this.props.points}
+                />
                 <div className="flex-align-center flex1 flex-col">
                     <div className="margin-bottom10">You are in game!</div>
                     <div className="margin-bottom10">Budget: {this.props.budget} $</div>

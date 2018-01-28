@@ -10,8 +10,9 @@ class TopBar extends Component {
 
     render() {
         return (
-            <div className="top-bar flex-row">
-                <div></div>{/* Empty div for consistency */}
+            <div style={{ background: this.props.color }} className="top-bar flex-row">
+                <div />
+                {/* Empty div for consistency */}
                 <div className="name flex1 flex-justify-center">{this.props.name}</div>
                 <div className="points">{this.props.points}</div>
             </div>

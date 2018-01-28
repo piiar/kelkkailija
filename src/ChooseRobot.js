@@ -104,7 +104,7 @@ class ChooseRobot extends Component {
         this.setState({
             robotTransmitted: true
         });
-        this.props.transmitRobot(this.state.selectedParts);
+        this.props.transmitRobot(this.state.selectedParts, this.state.selectedColor);
     }
 
     toggleColorSelector() {
