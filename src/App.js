@@ -2,13 +2,16 @@ import React, { Component } from "react";
 import "./App.css";
 import ChooseRobot from "./ChooseRobot";
 import Actions from "./Actions";
+import queryString from "query-string";
 
 class App extends Component {
     constructor(props) {
         super(props);
+        let params = queryString.parse(this.props.location.search);
+        let wsHost = params.wsHost || "localhost";
+        let wsPort = params.wsPort || "7777";
         this.state = {
-            wsUri: "ws://192.168.0.105:7777/",
-            // wsUri: "ws://localhost:7777/",
+            wsUri: "ws://" + wsHost + ":" + wsPort + "/",
             wsoutput: null,
             ws: null,
             fullscreen: false,
