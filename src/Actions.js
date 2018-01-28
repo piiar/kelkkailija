@@ -18,7 +18,7 @@ class Actions extends Component {
         };
 
         this.rotatePart = this.rotatePart.bind(this);
-        this.transmitRobot = this.transmitRobot.bind(this);
+        this.changeRobot = this.changeRobot.bind(this);
     }
 
     rotatePart(part) {
@@ -33,7 +33,7 @@ class Actions extends Component {
             clearTimeout(this.state.transmitTimeout);
         }
 
-        let timeout = setTimeout(this.transmitRobot, 2000);
+        let timeout = setTimeout(this.changeRobot, 2000);
 
         this.setState({
             selectedParts: selectedPartsCopy,
@@ -41,8 +41,8 @@ class Actions extends Component {
         });
     }
 
-    transmitRobot() {
-        this.props.transmitRobot(this.state.selectedParts);
+    changeRobot() {
+        this.props.changeRobot(this.state.selectedParts);
     }
 
     render() {
@@ -51,6 +51,7 @@ class Actions extends Component {
                 <TopBar name={this.props.name} points={this.props.points} />
                 <div className="flex-align-center flex1 flex-col">
                     <div className="margin-bottom10">You are in game!</div>
+                    <div className="margin-bottom10">Budget: {this.props.budget} $</div>
                     <div className="margin-bottom10">You can swap your AI mode:</div>
                     <div className="robot-top flex-row flex-align-center">
                         <div className="part-left">

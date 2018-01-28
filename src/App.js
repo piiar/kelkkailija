@@ -34,6 +34,7 @@ class App extends Component {
         this.gotoChooseRobot = this.gotoChooseRobot.bind(this);
         this.quit = this.quit.bind(this);
         this.toggleFullscreen = this.toggleFullscreen.bind(this);
+        this.handlechangeRobot = this.handlechangeRobot.bind(this);
         this.handletransmitRobot = this.handletransmitRobot.bind(this);
         this.transmitRobot = this.transmitRobot.bind(this);
     }
@@ -235,6 +236,22 @@ class App extends Component {
         }
     }
 
+    handlechangeRobot(selectedParts) {
+        this.setState({
+            selectedParts: selectedParts
+        });
+        let message = {
+            command: "changeRobot",
+            robot: selectedParts
+        };
+        if (this.state.loaded) {
+            console.log("sending", message);
+            this.state.ws.send(JSON.stringify(message));
+        } else {
+            console.log("not loaded yet");
+        }
+    }
+
     render() {
         if (this.state.step === this.state.gameStates.WELCOME) {
             let output, transmitText, transmitExtra, startButton, loadingDots;
@@ -295,8 +312,9 @@ class App extends Component {
                 <div className="App flex-col">
                     <Actions
                         selectedParts={this.state.selectedParts}
-                        transmitRobot={this.handletransmitRobot}
+                        changeRobot={this.handlechangeRobot}
                         name={this.state.name}
+                        budget={this.state.budget}
                         points={this.state.points}
                     />
                 </div>
