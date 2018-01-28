@@ -148,7 +148,11 @@ class ChooseRobot extends Component {
                         </div>
                     </div>
                 ) : null}
-                <TopBar color={this.props.selectedColor} name={this.props.name} points={this.props.points} />
+                <TopBar
+                    color={this.props.selectedColor}
+                    name={this.props.name}
+                    points={this.props.points}
+                />
                 <div className="flex-align-center full-width flex1 flex-col">
                     <div className="choose-robot-title margin-bottom10">
                         <span>Assemble your robot</span>
@@ -158,112 +162,122 @@ class ChooseRobot extends Component {
                         {this.state.canAfford ? null : <span>!!!TOO EXPENSIVE!!!</span>}
                     </div>
                     <div className="selection-container flex-justify-center flex-align-center flex1 flex-col full-width">
-                        <div
-                            className="color-selector-button main"
-                            onClick={this.toggleColorSelector}
-                            style={{ background: this.state.selectedColor }}
-                        />
-                        <div className="robot-top margin-bottom10 flex-row flex-align-center">
-                            <div className="part-left">
-                                <div className="selected-part">
-                                    {
-                                        this.state.availableParts.TOP[this.state.selectedParts.TOP]
-                                            .name
-                                    }
-                                </div>
-                                <div className="selected-part-price">
-                                    {
-                                        this.state.availableParts.TOP[this.state.selectedParts.TOP]
-                                            .price
-                                    }$
-                                </div>
-                            </div>
-                            {this.state.robotTransmitted ? null : (
-                                <button
-                                    className="swap-button"
-                                    onClick={() => {
-                                        this.rotatePart("TOP");
-                                    }}
-                                />
-                            )}
-                        </div>
-                        <div className="robot-left margin-bottom10 flex-row flex-align-center">
-                            <div className="part-left">
-                                <div className="selected-part">
-                                    {
-                                        this.state.availableParts.LEFT[
-                                            this.state.selectedParts.LEFT
-                                        ].name
-                                    }
-                                </div>
-                                <div className="selected-part-price">
-                                    {
-                                        this.state.availableParts.LEFT[
-                                            this.state.selectedParts.LEFT
-                                        ].price
-                                    }$
+                        <div className="selection-container-image  flex-justify-center flex-align-center flex1 flex-col full-width full-height">
+                            <div className="robot-top margin-bottom10 flex-row flex-align-center full-width">
+                                <div className="flex-col flex-align-center full-width">
+                                    <div className="part-left">
+                                        <div
+                                            className="color-selector-button main"
+                                            onClick={this.toggleColorSelector}
+                                            style={{ background: this.state.selectedColor }}
+                                        />
+                                        <div className="selected-part">
+                                            {
+                                                this.state.availableParts.TOP[
+                                                    this.state.selectedParts.TOP
+                                                ].name
+                                            }
+                                        </div>
+                                        <div className="selected-part-price">
+                                            {
+                                                this.state.availableParts.TOP[
+                                                    this.state.selectedParts.TOP
+                                                ].price
+                                            }$
+                                        </div>
+                                    </div>
+                                    {this.state.robotTransmitted ? null : (
+                                        <button
+                                            className="swap-button"
+                                            onClick={() => {
+                                                this.rotatePart("TOP");
+                                            }}
+                                        />
+                                    )}
                                 </div>
                             </div>
-                            {this.state.robotTransmitted ? null : (
-                                <button
-                                    className="swap-button"
-                                    onClick={() => {
-                                        this.rotatePart("LEFT");
-                                    }}
-                                />
-                            )}
-                        </div>
-                        <div className="robot-right margin-bottom10 flex-row flex-align-center">
-                            <div className="part-left">
-                                <div className="selected-part">
-                                    {
-                                        this.state.availableParts.RIGHT[
-                                            this.state.selectedParts.RIGHT
-                                        ].name
-                                    }
+                            <div className="flex-row flex-align-center full-width">
+                                <div className="robot-left margin-bottom10 flex-col flex-align-center half-width">
+                                    <div className="part-left">
+                                        <div className="selected-part">
+                                            {
+                                                this.state.availableParts.LEFT[
+                                                    this.state.selectedParts.LEFT
+                                                ].name
+                                            }
+                                        </div>
+                                        <div className="selected-part-price">
+                                            {
+                                                this.state.availableParts.LEFT[
+                                                    this.state.selectedParts.LEFT
+                                                ].price
+                                            }$
+                                        </div>
+                                    </div>
+                                    {this.state.robotTransmitted ? null : (
+                                        <button
+                                            className="swap-button"
+                                            onClick={() => {
+                                                this.rotatePart("LEFT");
+                                            }}
+                                        />
+                                    )}
                                 </div>
-                                <div className="selected-part-price">
-                                    {
-                                        this.state.availableParts.RIGHT[
-                                            this.state.selectedParts.RIGHT
-                                        ].price
-                                    }$
+                                <div className="robot-right margin-bottom10 flex-col flex-align-center half-width">
+                                    <div className="part-left">
+                                        <div className="selected-part">
+                                            {
+                                                this.state.availableParts.RIGHT[
+                                                    this.state.selectedParts.RIGHT
+                                                ].name
+                                            }
+                                        </div>
+                                        <div className="selected-part-price">
+                                            {
+                                                this.state.availableParts.RIGHT[
+                                                    this.state.selectedParts.RIGHT
+                                                ].price
+                                            }$
+                                        </div>
+                                    </div>
+                                    {this.state.robotTransmitted ? null : (
+                                        <button
+                                            className="swap-button"
+                                            onClick={() => {
+                                                this.rotatePart("RIGHT");
+                                            }}
+                                        />
+                                    )}
                                 </div>
                             </div>
-                            {this.state.robotTransmitted ? null : (
-                                <button
-                                    className="swap-button"
-                                    onClick={() => {
-                                        this.rotatePart("RIGHT");
-                                    }}
-                                />
-                            )}
-                        </div>
-                        <div className="robot-bottom margin-bottom10 flex-row flex-align-center">
-                            <div className="part-left">
-                                <div className="selected-part">
-                                    {
-                                        this.state.availableParts.BOTTOM[
-                                            this.state.selectedParts.BOTTOM
-                                        ].name
-                                    }
-                                </div>
-                                <div className="selected-part-price">
-                                    {
-                                        this.state.availableParts.BOTTOM[
-                                            this.state.selectedParts.BOTTOM
-                                        ].price
-                                    }$
+                            <div className="robot-bottom margin-bottom10 flex-row flex-align-center full-width">
+                                <div className="flex-col flex-align-center full-width">
+                                    {this.state.robotTransmitted ? null : (
+                                        <button
+                                            className="swap-button"
+                                            onClick={() => {
+                                                this.rotatePart("BOTTOM");
+                                            }}
+                                        />
+                                    )}
+                                    <div className="part-bottom">
+                                        <div className="selected-part">
+                                            {
+                                                this.state.availableParts.BOTTOM[
+                                                    this.state.selectedParts.BOTTOM
+                                                ].name
+                                            }
+                                        </div>
+                                        <div className="selected-part-price">
+                                            {
+                                                this.state.availableParts.BOTTOM[
+                                                    this.state.selectedParts.BOTTOM
+                                                ].price
+                                            }$
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            {this.state.robotTransmitted ? null : (
-                                <button
-                                    className="swap-button"
-                                    onClick={() => {
-                                        this.rotatePart("BOTTOM");
-                                    }}
-                                />
-                            )}
                         </div>
                     </div>
                     {this.state.robotTransmitted ? (

@@ -1,10 +1,16 @@
-body, html, #root, #root > div {
+body,
+html,
+#root,
+#root > div {
     height: 100%;
     font-family: Calibri;
 }
 
 .full-width {
     width: 100%;
+}
+.half-width {
+    width: 50%;
 }
 .flex1 {
     display: flex;
@@ -49,17 +55,17 @@ body, html, #root, #root > div {
 }
 
 .start-button {
-    background: url('assets/ok_idle.png');
+    background: url("assets/ok_idle.png");
 }
 
 .start-button:active {
-    background: url('assets/ok_pressed.png');
+    background: url("assets/ok_pressed.png");
 }
 .swap-button {
-    background: url('assets/swap_idle.png');
+    background: url("assets/swap_idle.png");
 }
 .swap-button:active {
-    background: url('assets/swap_pressed.png');
+    background: url("assets/swap_pressed.png");
 }
 .start-button,
 .start-button:active {
@@ -95,22 +101,27 @@ body, html, #root, #root > div {
 .selection-container {
     position: relative;
     border-radius: 10px;
-    background: linear-gradient(#5f5fec,#0a0a98);
+    background: linear-gradient(#5f5fec, #0a0a98);
     width: calc(100vw - 20px);
     max-height: calc(100vh - 20px);
+}
+
+.selection-container-image {
+    background-size: 100% 100%;
+    background: url("assets/robot_details.png") no-repeat center;
 }
 
 .color-selector {
     position: absolute;
     z-index: 2;
     border-radius: 10px;
-    top:10px;
-    left:10px;
-    right:10px;
-    bottom:10px;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
     width: calc(100vw - 50px);
     height: calc(100vh - 50px);
-    background: linear-gradient(#333333,#191920);
+    background: linear-gradient(#333333, #191920);
     padding: 15px;
     justify-content: center;
     align-items: center;
@@ -133,19 +144,19 @@ body, html, #root, #root > div {
     width: 50px;
     height: 50px;
     border-radius: 10px;
-    box-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 }
 
 /* Loading animation */
 @keyframes blink {
     0% {
-        opacity: .2;
+        opacity: 0.2;
     }
     20% {
         opacity: 1;
     }
     100% {
-        opacity: .2;
+        opacity: 0.2;
     }
 }
 .loading.big {
@@ -159,10 +170,10 @@ body, html, #root, #root > div {
     animation-fill-mode: both;
 }
 .loading span:nth-child(2) {
-    animation-delay: .2s;
+    animation-delay: 0.2s;
 }
 .loading span:nth-child(3) {
-    animation-delay: .4s;
+    animation-delay: 0.4s;
 }
 
 .top-bar {
@@ -183,4 +194,8 @@ body, html, #root, #root > div {
 
 .margin-bottom10 {
     margin-bottom: 10px;
+}
+
+.robot-row {
+    flex-basis: 100%;
 }
