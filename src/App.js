@@ -233,7 +233,6 @@ class App extends Component {
                 robotselected: true
             });
         }
-        console.log(this.state.step);
     }
 
     transmitRobot(selectedParts, color) {

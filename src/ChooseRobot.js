@@ -133,7 +133,6 @@ class ChooseRobot extends Component {
         let idx = this.state.availableParts[item].indexOf(part);
         // update selectedpart index
         selectedPartsCopy[item] = idx;
-        console.log('swapWeapon', item, part, selectedPartsCopy);
         let newPrice = this.totalPrice(selectedPartsCopy);
         let canAfford = newPrice > this.props.budget ? false : true;
         this.setState({
@@ -185,7 +184,6 @@ class ChooseRobot extends Component {
                         <div className="flex-col flex1 item-container flex-justify-center flex-align-center">
                             {this.state.availableParts['LEFT'].map((part, i) => {
                                 const imageUrl = require('./assets/' + part.image + '.png');
-                                console.log('part', part, imageUrl);
                                 return (
                                     <div key={i} className="weapon-container full-width flex-row" onClick={() => this.swapWeapon('LEFT', part)}>
                                         <div className="icon" style={{ backgroundImage: `url(${imageUrl})` }}></div>
@@ -206,7 +204,6 @@ class ChooseRobot extends Component {
                         <div className="flex-col flex1 item-container flex-justify-center flex-align-center">
                             {this.state.availableParts['RIGHT'].map((part, i) => {
                                 const imageUrl = require('./assets/' + part.image + '.png');
-                                console.log('part', part, imageUrl);
                                 return (
                                     <div key={i} className="weapon-container full-width flex-row" onClick={() => this.swapWeapon('RIGHT', part)}>
                                         <div className="icon" style={{ backgroundImage: `url(${imageUrl})` }}></div>
@@ -227,7 +224,6 @@ class ChooseRobot extends Component {
                         <div className="flex-col flex1 item-container flex-justify-center flex-align-center">
                             {this.state.availableParts['TOP'].map((part, i) => {
                                 const imageUrl = require('./assets/' + part.image + '.png');
-                                console.log('part', part, imageUrl);
                                 return (
                                     <div key={i} className="weapon-container full-width flex-row" onClick={() => this.swapWeapon('TOP', part)}>
                                         <div className="icon" style={{ backgroundImage: `url(${imageUrl})` }}></div>
@@ -248,7 +244,6 @@ class ChooseRobot extends Component {
                         <div className="flex-col flex1 item-container flex-justify-center flex-align-center">
                             {this.state.availableParts['BOTTOM'].map((part, i) => {
                                 const imageUrl = require('./assets/' + part.image + '.png');
-                                console.log('part', part, imageUrl);
                                 return (
                                     <div key={i} className="weapon-container full-width flex-row" onClick={() => this.swapWeapon('BOTTOM', part)}>
                                         <div className="icon" style={{ backgroundImage: `url(${imageUrl})` }}></div>
