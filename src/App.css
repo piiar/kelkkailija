@@ -197,8 +197,13 @@ html,
     text-shadow: 2px 2px 2px;
 }
 
-.part-left {
-    padding-right: 10px;
+.part-left,
+.part-right,
+.part-top,
+.part-bottom {
+    background: rgba(0,0,0,0.5);
+    border-radius: 10px;
+    padding: 5px;
 }
 
 .margin-bottom10 {

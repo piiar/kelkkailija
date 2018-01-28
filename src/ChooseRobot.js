@@ -244,7 +244,7 @@ class ChooseRobot extends Component {
                     <div className="choose-robot-title margin-bottom10">
                         <span>Assemble your robot</span>
                     </div>
-                    <div className="choose-robot-title margin-bottom10">
+                    <div className="choose-robot-title margin-bottom10 flex-col">
                         <span>Budget: {this.props.budget - this.state.price} $</span>
                         {this.state.canAfford ? null : <span>!!!TOO EXPENSIVE!!!</span>}
                     </div>
@@ -262,7 +262,7 @@ class ChooseRobot extends Component {
                                             {
                                                 this.state.availableParts.TOP[
                                                     this.state.selectedParts.TOP
-                                                ].name
+                                                ].real_name
                                             }
                                         </div>
                                         <div className="selected-part-price">
@@ -290,7 +290,7 @@ class ChooseRobot extends Component {
                                             {
                                                 this.state.availableParts.LEFT[
                                                     this.state.selectedParts.LEFT
-                                                ].name
+                                                ].real_name
                                             }
                                         </div>
                                         <div className="selected-part-price">
@@ -316,7 +316,7 @@ class ChooseRobot extends Component {
                                             {
                                                 this.state.availableParts.RIGHT[
                                                     this.state.selectedParts.RIGHT
-                                                ].name
+                                                ].real_name
                                             }
                                         </div>
                                         <div className="selected-part-price">
@@ -352,7 +352,7 @@ class ChooseRobot extends Component {
                                             {
                                                 this.state.availableParts.BOTTOM[
                                                     this.state.selectedParts.BOTTOM
-                                                ].name
+                                                ].real_name
                                             }
                                         </div>
                                         <div className="selected-part-price">
