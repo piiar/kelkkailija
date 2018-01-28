@@ -10,6 +10,11 @@ class ChooseRobot extends Component {
             canAfford: true,
             robotTransmitted: false,
             showColorSelector: false,
+            showLeftItemSelector: false,
+            showRightItemSelector: false,
+            showTopItemSelector: false,
+            showBottomItemSelector: false,
+            selectedColor: "#eeecec",
             parts: ["TOP", "LEFT", "RIGHT", "BOTTOM"],
             selectedParts: {
                 TOP: 0,
@@ -17,28 +22,29 @@ class ChooseRobot extends Component {
                 RIGHT: 0,
                 BOTTOM: 0
             },
-            selectedColor: "#eeecec",
             availableParts: {
                 TOP: [
-                    { name: "ai-aggressive", price: 0 },
-                    { name: "ai-flanking", price: 0 },
-                    { name: "ai-objective", price: 0 }
+                    { name: "ai-aggressive", real_name: "Aggressive", description: "Aim to kill the host player as fast as possible", price: 0 },
+                    { name: "ai-flanking", real_name: "Flanking", description: "Don't rush in to killing but instead flank the player from behind", price: 0 },
+                    { name: "ai-objective", real_name: "Objective", description: "Collect as much points and money from the field as possible", price: 0 }
                 ],
                 LEFT: [
-                    { name: "lo-left", price: 0 },
-                    { name: "mid-left", price: 250 },
-                    { name: "hi-left", price: 1000 }
+                    { name: "lo-left", real_name: "Baton", image:"baton_icon", description: "Close range disciplinary action", price: 0 },
+                    { name: "mid-left", real_name: "Riot shield", image:"shield_icon", description: "Protect valuable company property", price: 55 },
+                    { name: "hi-left", real_name: "Flamer", image:"flamer_icon", description: "Barbeque perpetrators at medium range", price: 300 },
+                    { name: "xhi-left", real_name: "Zap gun", image:"zapgun_icon", description: "Perfect for long distance electrocution", price: 800 },
                 ],
                 RIGHT: [
-                    { name: "lo-right", price: 0 },
-                    { name: "mid-right", price: 250 },
-                    { name: "hi-right", price: 1000 }
+                    { name: "lo-right", real_name: "Baton", image:"baton_icon", description: "Close range disciplinary action", price: 0 },
+                    { name: "mid-right", real_name: "Riot shield", image:"shield_icon", description: "Protect valuable company property", price: 55 },
+                    { name: "hi-right", real_name: "Flamer", image:"flamer_icon", description: "Barbeque perpetrators at medium range", price: 300 },
+                    { name: "xhi-right", real_name: "Zap gun", image:"zapgun_icon", description: "Perfect for long distance electrocution", price: 800 },
                 ],
                 BOTTOM: [
-                    { name: "lo-bottom", price: 0 },
-                    { name: "mid-bottom", price: 250 },
-                    { name: "hi-bottom", price: 1000 }
-                ]
+                    { name: "lo-bottom", real_name: "Metal wheels", image:"metalwheels_icon", description: "Regular wheels made of metal", price: 0 },
+                    { name: "mid-bottom", real_name: "Tyres", image:"tyres_icon", description: "Better grip and speed wheels", price: 55 },
+                    { name: "hi-bottom", real_name: "Tracks", image:"tracks_icon", description: "Go at full grip and speed", price: 300 },
+                ],
             },
             colorsList: [
                 "#eeecec",
@@ -69,8 +75,10 @@ class ChooseRobot extends Component {
         };
         this.totalPrice = this.totalPrice.bind(this);
         this.rotatePart = this.rotatePart.bind(this);
+        this.swapWeapon = this.swapWeapon.bind(this);
         this.transmitRobot = this.transmitRobot.bind(this);
         this.colorSelected = this.colorSelected.bind(this);
+        this.toggleItemSelector = this.toggleItemSelector.bind(this);
         this.toggleColorSelector = this.toggleColorSelector.bind(this);
     }
 
@@ -113,8 +121,47 @@ class ChooseRobot extends Component {
         });
     }
 
+    toggleItemSelector(item) {
+        if (item === 'LEFT') {
+            this.setState({
+                showLeftItemSelector: !this.state.showLeftItemSelector
+            });
+        }
+        if (item === 'RIGHT') {
+            this.setState({
+                showRightItemSelector: !this.state.showRightItemSelector
+            });
+        }
+        if (item === 'TOP') {
+            this.setState({
+                showTopItemSelector: !this.state.showTopItemSelector
+            });
+        }
+        if (item === 'BOTTOM') {
+            this.setState({
+                showBottomItemSelector: !this.state.showBottomItemSelector
+            });
+        }
+    }
+
+    swapWeapon(item, part) {
+        let selectedPartsCopy = { ...this.state.selectedParts };
+
+        // get the index of the part
+        let idx = this.state.availableParts[item].indexOf(part);
+        // update selectedpart index
+        selectedPartsCopy[item] = idx;
+        console.log('swapWeapon', item, part, selectedPartsCopy);
+        let newPrice = this.totalPrice(selectedPartsCopy);
+        let canAfford = newPrice > this.props.budget ? false : true;
+        this.setState({
+            selectedParts: selectedPartsCopy,
+            price: newPrice,
+            canAfford: canAfford
+        });
+    }
+
     colorSelected(color) {
-        console.log("color selected", color);
         this.setState({
             selectedColor: color
         });
@@ -143,6 +190,46 @@ class ChooseRobot extends Component {
                                         onClick={() => this.colorSelected(color)}
                                         style={{ background: color }}
                                     />
+                                );
+                            })}
+                        </div>
+                    </div>
+                ) : null}
+                {this.state.showLeftItemSelector ? (
+                    <div className="item-selector flex-col" onClick={() => this.toggleItemSelector('LEFT')}>
+                        <span className="item-selector-title">Select weapon (left arm)</span>
+                        <div className="flex-col flex1 item-container flex-justify-center flex-align-center">
+                            {this.state.availableParts['LEFT'].map((part, i) => {
+                                const imageUrl = require('./assets/' + part.image + '.png');
+                                console.log('part', part, imageUrl);
+                                return (
+                                    <div key={i} className="weapon-container full-width flex-row" onClick={() => this.swapWeapon('LEFT', part)}>
+                                        <div className="icon" style={{ backgroundImage: `url(${imageUrl})` }}></div>
+                                        <div className="texts flex-col flex1">
+                                            <div className="weapon-name full-width">{part.real_name} (${part.price})</div>
+                                            <div className="weapon-desc">{part.description}</div>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                ) : null}
+                {this.state.showRightItemSelector ? (
+                    <div className="item-selector flex-col" onClick={() => this.toggleItemSelector('RIGHT')}>
+                        <span className="item-selector-title">Select weapon (right arm)</span>
+                        <div className="flex-col flex1 item-container flex-justify-center flex-align-center">
+                            {this.state.availableParts['RIGHT'].map((part, i) => {
+                                const imageUrl = require('./assets/' + part.image + '.png');
+                                console.log('part', part, imageUrl);
+                                return (
+                                    <div key={i} className="weapon-container full-width flex-row" onClick={() => this.swapWeapon('RIGHT', part)}>
+                                        <div className="icon" style={{ backgroundImage: `url(${imageUrl})` }}></div>
+                                        <div className="texts flex-col flex1">
+                                            <div className="weapon-name full-width">{part.real_name} (${part.price})</div>
+                                            <div className="weapon-desc">{part.description}</div>
+                                        </div>
+                                    </div>
                                 );
                             })}
                         </div>
@@ -218,7 +305,7 @@ class ChooseRobot extends Component {
                                         <button
                                             className="swap-button"
                                             onClick={() => {
-                                                this.rotatePart("LEFT");
+                                                this.toggleItemSelector("LEFT");
                                             }}
                                         />
                                     )}
@@ -244,7 +331,7 @@ class ChooseRobot extends Component {
                                         <button
                                             className="swap-button"
                                             onClick={() => {
-                                                this.rotatePart("RIGHT");
+                                                this.toggleItemSelector("RIGHT");
                                             }}
                                         />
                                     )}
