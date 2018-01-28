@@ -115,7 +115,7 @@ html,
 
 .selection-container-image {
     background-size: 100% 100%;
-    background: url("assets/robot_details.png") no-repeat center;
+    background: url("assets/robot_details2.png") no-repeat center;
 }
 
 .color-selector,
@@ -234,10 +234,10 @@ html,
 
 .weapon-name {
     font-size: 25px;
-    background:rgb(56, 56, 172);
+    background: rgb(56, 56, 172);
     border-top-right-radius: 10px;
 }
 
-.weapon-desc  {
+.weapon-desc {
     padding-left: 10px;
 }
