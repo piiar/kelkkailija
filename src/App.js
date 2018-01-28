@@ -304,6 +304,7 @@ class App extends Component {
             return (
                 <div className="App flex-col">
                     <ChooseRobot
+                        selectedColor={this.state.selectedColor}
                         transmitRobot={this.handletransmitRobot}
                         name={this.state.name}
                         points={this.state.points}
