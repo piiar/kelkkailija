@@ -134,6 +134,12 @@ class App extends Component {
                     gameStarted: true
                 });
             }
+        } else if (dataJson.command && dataJson.command === "stopGame") {
+            this.setState({
+                step: this.state.gameStates.WELCOME,
+                robotInLobby: false,
+                gameStarted: false
+            });
         }
     }
 
