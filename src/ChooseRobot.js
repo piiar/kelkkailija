@@ -148,7 +148,7 @@ class ChooseRobot extends Component {
                         </div>
                     </div>
                 ) : null}
-                <TopBar name={this.props.name} points={this.props.points} />
+                <TopBar color={this.props.selectedColor} name={this.props.name} points={this.props.points} />
                 <div className="flex-align-center full-width flex1 flex-col">
                     <div className="choose-robot-title margin-bottom10">
                         <span>Assemble your robot</span>
