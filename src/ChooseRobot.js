@@ -24,9 +24,9 @@ class ChooseRobot extends Component {
             },
             availableParts: {
                 TOP: [
-                    { name: "ai-aggressive", real_name: "Aggressive", description: "Aim to kill the host player as fast as possible", price: 0 },
-                    { name: "ai-flanking", real_name: "Flanking", description: "Don't rush in to killing but instead flank the player from behind", price: 0 },
-                    { name: "ai-objective", real_name: "Objective", description: "Collect as much points and money from the field as possible", price: 0 }
+                    { name: "ai-aggressive", real_name: "Aggressive", image: "generic_program", description: "Aim to kill the host player as fast as possible", price: 0 },
+                    { name: "ai-flanking", real_name: "Flanking", image: "generic_program", description: "Don't rush in to killing but instead flank the player from behind", price: 0 },
+                    { name: "ai-objective", real_name: "Objective", image: "generic_program", description: "Collect as much points and money from the field as possible", price: 0 }
                 ],
                 LEFT: [
                     { name: "lo-left", real_name: "Baton", image:"baton_icon", description: "Close range disciplinary action", price: 0 },
@@ -74,7 +74,6 @@ class ChooseRobot extends Component {
             ]
         };
         this.totalPrice = this.totalPrice.bind(this);
-        this.rotatePart = this.rotatePart.bind(this);
         this.swapWeapon = this.swapWeapon.bind(this);
         this.transmitRobot = this.transmitRobot.bind(this);
         this.colorSelected = this.colorSelected.bind(this);
@@ -89,23 +88,6 @@ class ChooseRobot extends Component {
             totalPrice += this.state.availableParts[part][selectedParts[part]].price;
         }
         return totalPrice;
-    }
-
-    rotatePart(part) {
-        let maxIndex = this.state.availableParts[part].length - 1;
-        let selectedPartsCopy = { ...this.state.selectedParts };
-        selectedPartsCopy[part]++;
-        if (selectedPartsCopy[part] > maxIndex) {
-            selectedPartsCopy[part] = 0;
-        }
-
-        let newPrice = this.totalPrice(selectedPartsCopy);
-        let canAfford = newPrice > this.props.budget ? false : true;
-        this.setState({
-            selectedParts: selectedPartsCopy,
-            price: newPrice,
-            canAfford: canAfford
-        });
     }
 
     transmitRobot() {
@@ -178,6 +160,7 @@ class ChooseRobot extends Component {
         );
         return (
             <div className="flex1 flex-align-center flex-justify-stretch flex-col">
+                {/* Color selector */}
                 {this.state.showColorSelector ? (
                     <div className="color-selector flex-col" onClick={this.toggleColorSelector}>
                         <span className="color-selector-title">Select the color of your unit</span>
@@ -195,6 +178,7 @@ class ChooseRobot extends Component {
                         </div>
                     </div>
                 ) : null}
+                {/* Left item selector */}
                 {this.state.showLeftItemSelector ? (
                     <div className="item-selector flex-col" onClick={() => this.toggleItemSelector('LEFT')}>
                         <span className="item-selector-title">Select weapon (left arm)</span>
@@ -215,6 +199,7 @@ class ChooseRobot extends Component {
                         </div>
                     </div>
                 ) : null}
+                {/* Right item selector */}
                 {this.state.showRightItemSelector ? (
                     <div className="item-selector flex-col" onClick={() => this.toggleItemSelector('RIGHT')}>
                         <span className="item-selector-title">Select weapon (right arm)</span>
@@ -224,6 +209,48 @@ class ChooseRobot extends Component {
                                 console.log('part', part, imageUrl);
                                 return (
                                     <div key={i} className="weapon-container full-width flex-row" onClick={() => this.swapWeapon('RIGHT', part)}>
+                                        <div className="icon" style={{ backgroundImage: `url(${imageUrl})` }}></div>
+                                        <div className="texts flex-col flex1">
+                                            <div className="weapon-name full-width">{part.real_name} (${part.price})</div>
+                                            <div className="weapon-desc">{part.description}</div>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                ) : null}
+                {/* TOP item selector */}
+                {this.state.showTopItemSelector ? (
+                    <div className="item-selector flex-col" onClick={() => this.toggleItemSelector('TOP')}>
+                        <span className="item-selector-title">Select your AI mode</span>
+                        <div className="flex-col flex1 item-container flex-justify-center flex-align-center">
+                            {this.state.availableParts['TOP'].map((part, i) => {
+                                const imageUrl = require('./assets/' + part.image + '.png');
+                                console.log('part', part, imageUrl);
+                                return (
+                                    <div key={i} className="weapon-container full-width flex-row" onClick={() => this.swapWeapon('TOP', part)}>
+                                        <div className="icon" style={{ backgroundImage: `url(${imageUrl})` }}></div>
+                                        <div className="texts flex-col flex1">
+                                            <div className="weapon-name full-width">{part.real_name} (${part.price})</div>
+                                            <div className="weapon-desc">{part.description}</div>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                ) : null}
+                {/* BOTTOM item selector */}
+                {this.state.showBottomItemSelector ? (
+                    <div className="item-selector flex-col" onClick={() => this.toggleItemSelector('BOTTOM')}>
+                        <span className="item-selector-title">Select wheels</span>
+                        <div className="flex-col flex1 item-container flex-justify-center flex-align-center">
+                            {this.state.availableParts['BOTTOM'].map((part, i) => {
+                                const imageUrl = require('./assets/' + part.image + '.png');
+                                console.log('part', part, imageUrl);
+                                return (
+                                    <div key={i} className="weapon-container full-width flex-row" onClick={() => this.swapWeapon('BOTTOM', part)}>
                                         <div className="icon" style={{ backgroundImage: `url(${imageUrl})` }}></div>
                                         <div className="texts flex-col flex1">
                                             <div className="weapon-name full-width">{part.real_name} (${part.price})</div>
@@ -277,7 +304,7 @@ class ChooseRobot extends Component {
                                         <button
                                             className="swap-button"
                                             onClick={() => {
-                                                this.rotatePart("TOP");
+                                                this.toggleItemSelector("TOP");
                                             }}
                                         />
                                     )}
@@ -343,7 +370,7 @@ class ChooseRobot extends Component {
                                         <button
                                             className="swap-button"
                                             onClick={() => {
-                                                this.rotatePart("BOTTOM");
+                                                this.toggleItemSelector("BOTTOM");
                                             }}
                                         />
                                     )}
