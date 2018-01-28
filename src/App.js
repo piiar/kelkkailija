@@ -112,10 +112,10 @@ class App extends Component {
                 token: dataJson.token
             });
             this.writeToScreen(
-                "<div>Your assigned serial number is</div>" +
-                    '<div style="font-size: 1.5em">' +
-                    this.state.name +
-                    "</div>"
+                '<div>Your assigned serial number is</div>' +
+                '<div style="font-size: 1.5em">' +
+                this.state.name +
+                "</div>"
             );
         }
 
@@ -140,6 +140,12 @@ class App extends Component {
                 robotInLobby: false,
                 gameStarted: false
             });
+            this.writeToScreen(
+                '<div>Game ended</div>' +
+                '<div style="font-size: 1.5em">' +
+                this.state.name + ': ' + this.state.points + ' points' +
+                '</div>'
+            );
             this.doSend("{'command': 'joinGame'}");
         }
     }
